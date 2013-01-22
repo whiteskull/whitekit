@@ -1,9 +1,9 @@
 !!!
 %html
   %head
-    %title Whitecms
-    = stylesheet_link_tag    "application", :media => "all"
-    = javascript_include_tag "application"
-    = csrf_meta_tags
-  %body
+    = render 'layouts/head'
+  %body{id: controller_name}
+    %p.notice{style: display_none_if(!notice)}= notice
+    %p.alert{style: display_none_if(!alert)}= alert
+    = render 'layouts/menu'
     = yield

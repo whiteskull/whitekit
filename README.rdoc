@@ -259,3 +259,68 @@ vendor
   External libraries that the application depends on. Also includes the plugins
   subdirectory. If the app has frozen rails, those gems also go here, under
   vendor/rails/. This directory is in the load path.
+
+=================== POSSIBLE IMPROVEMENTS ===================
+
+== Rails Admin can use only admin
+
+https://github.com/sferik/rails_admin
+
+Add to rails_admin.rb:
+
+config.authorize_with do
+  redirect_to main_app.root_path unless current_user.try(:admin?)
+end
+
+And then you can enter to the admin part:
+
+localhost:3000/admin
+
+email: admin@mail.ru
+password: password
+
+== To use ckeditor field in rails admin
+
+https://github.com/galetahub/ckeditor
+
+Add to rails_admin.rb:
+
+config.model ModelName do
+  include_all_fields
+  edit do
+    field :field_name do
+      ckeditor do
+        true
+      end
+    end
+  end
+end
+
+== Twitter bootstrap
+
+https://github.com/thomas-mcdonald/bootstrap-sass
+
+There is a helper that includes all available javascripts:
+
+//= require bootstrap
+
+Or you can also load individual modules:
+
+//= require bootstrap-scrollspy
+//= require bootstrap-modal
+//= require bootstrap-dropdown
+
+And so on...
+
+== SimpleForm
+
+https://github.com/plataformatec/simple_form
+
+Example:
+
+= simple_form_for @user do |f|
+  = f.input :username
+  = f.input :password
+  = f.button :submit
+
+

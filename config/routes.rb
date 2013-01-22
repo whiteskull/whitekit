@@ -1,4 +1,6 @@
 Whitecms::Application.routes.draw do
+  get 'pages/index'
+
   mount Ckeditor::Engine => '/ckeditor'
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
@@ -7,7 +9,7 @@ Whitecms::Application.routes.draw do
 
   root :to => 'general#index'
 
-  get "general/index"
+  post 'make_aliases' => 'general#make_aliases', as: 'make_aliases'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

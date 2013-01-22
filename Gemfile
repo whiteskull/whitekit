@@ -5,8 +5,17 @@ gem 'rails', '3.2.11'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+gem 'haml-rails'
+gem 'devise'
+gem 'rails_admin', git: 'git@github.com:sferik/rails_admin.git'
+gem 'ckeditor'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'simple_form'
+gem 'ancestry'
+gem 'rails_admin_nestable'
 
+gem 'russian', '~> 0.6.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -18,6 +27,15 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+  gem 'bootstrap-sass'
+end
+
+group :development do
+  gem 'sqlite3'
+end
+
+group :production do
+  gem 'mysql2'
 end
 
 gem 'jquery-rails'
@@ -37,13 +55,3 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
-gem "haml-rails"
-gem "hpricot", :group => :development
-gem "ruby_parser", :group => :development
-gem "devise"
-gem "rails_admin"
-gem "ckeditor"
-gem "carrierwave"
-gem "mini_magick"
-gem "bootstrap-sass", :group => :assets
-gem "simple_form"

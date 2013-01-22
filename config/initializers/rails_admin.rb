@@ -3,8 +3,35 @@
 
 RailsAdmin.config do |config|
 
-
   ################  Global configuration  ################
+
+  config.authorize_with do
+    redirect_to main_app.root_path unless current_user.try(:admin?)
+  end
+
+  config.actions do
+    # root actions
+    dashboard                     # mandatory
+                                  # collection actions
+    index                         # mandatory
+    new
+    export
+    history_index
+    bulk_delete
+                                  # member actions
+    show
+    edit
+    delete
+    history_show
+    show_in_app
+
+    # Add the nestable action for each model
+    nestable do
+      visible do
+        %w(Page).include? bindings[:abstract_model].model_name
+      end
+    end
+  end
 
   # Set the admin name here (optional second array element will appear in red). For example:
   config.main_app_name = ['Whitecms', 'Admin']
@@ -37,6 +64,18 @@ RailsAdmin.config do |config|
 
 
   ################  Model configuration  ################
+
+  config.model Page do
+    nestable_tree({ position_field: :position, max_depth: 4 })
+    include_all_fields
+    edit do
+      field :content do
+        ckeditor do
+          true
+        end
+      end
+    end
+  end
 
   # Each model configuration can alternatively:
   #   - stay here in a `config.model 'ModelName' do ... end` block

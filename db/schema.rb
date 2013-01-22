@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130121102040) do
+ActiveRecord::Schema.define(:version => 20130121113748) do
 
   create_table "ckeditor_assets", :force => true do |t|
     t.string   "data_file_name",                  :null => false
@@ -28,6 +28,24 @@ ActiveRecord::Schema.define(:version => 20130121102040) do
 
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], :name => "idx_ckeditor_assetable"
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], :name => "idx_ckeditor_assetable_type"
+
+  create_table "pages", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.string   "alias"
+    t.string   "keywords"
+    t.text     "description"
+    t.boolean  "to_first"
+    t.string   "redirect_to"
+    t.boolean  "hidden",      :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.string   "ancestry"
+    t.integer  "position"
+    t.string   "link"
+  end
+
+  add_index "pages", ["ancestry"], :name => "index_pages_on_ancestry"
 
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"
