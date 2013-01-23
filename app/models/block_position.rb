@@ -1,7 +1,7 @@
 class BlockPosition < ActiveRecord::Base
   has_many :blocks
 
-  attr_accessible :alias, :hidden, :name
+  attr_accessible :alias, :hidden, :name, as: :admin
 
   validates :alias, presence: true, uniqueness: true
   validates :name, presence: true

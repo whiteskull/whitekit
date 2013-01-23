@@ -14,6 +14,7 @@ gem 'mini_magick'
 gem 'simple_form'
 gem 'ancestry'
 gem 'rails_admin_nestable'
+gem 'paper_trail', '~> 2'
 
 gem 'russian', '~> 0.6.0'
 

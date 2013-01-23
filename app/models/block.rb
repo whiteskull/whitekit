@@ -1,8 +1,8 @@
 class Block < ActiveRecord::Base
   belongs_to :block_position
 
-  attr_accessible :block_position_id
-  attr_accessible :alias, :content, :hidden, :name
+  attr_accessible :block_position_id, as: :admin
+  attr_accessible :alias, :content, :hidden, :name, as: :admin
 
   validates :alias, presence: true, uniqueness: true
   validates :name, presence: true

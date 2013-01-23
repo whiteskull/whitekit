@@ -2,7 +2,8 @@
 class Page < ActiveRecord::Base
   has_ancestry
 
-  attr_accessible :content, :description, :hidden, :keywords, :redirect_to, :title, :to_first, :link, :title_seo, :title_page
+  attr_accessible :content, :description, :hidden, :keywords, :redirect_to, :title, :to_first,
+                  :link, :title_seo, :title_page, as: :admin
 
   validates_presence_of :title, :link
 
@@ -27,6 +28,7 @@ class Page < ActiveRecord::Base
     if Page.first == self
       self.link = '/'
     else
+      self.link = 'root' if link == '/'
       field = link.blank? ? title : link
       self.link = Russian.translit(field.gsub(/ /, '-')).downcase
     end
@@ -39,7 +41,7 @@ class Page < ActiveRecord::Base
 
   # Set max position to new pages
   def set_max_position
-    self.position = 999
+    self.position = 999 unless link == '/'
   end
 
   # Make aliases for all pages

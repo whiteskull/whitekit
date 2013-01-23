@@ -9,11 +9,11 @@
 
 # Create admin
 User.delete_all
-User.create({email: 'admin@mail.ru', password: 'password', admin: true}, without_protection: true)
+User.create({email: 'admin@mail.com', password: 'password', admin: true}, without_protection: true)
 
 # Create root page
 Page.delete_all
-Page.create({title: 'Main page', link: '/'})
+Page.create({title: 'Main page', link: '/', position: 1}, without_protection: true)
 
 # Create copyright block
 Block.delete_all

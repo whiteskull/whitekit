@@ -1,9 +1,21 @@
+require 'i18n'
+I18n.default_locale = :en
 # RailsAdmin config file. Generated on January 21, 2013 10:20
 # See github.com/sferik/rails_admin for more informations
 
 RailsAdmin.config do |config|
 
   ################  Global configuration  ################
+
+  # Set the admin name here (optional second array element will appear in red). For example:
+  config.main_app_name = %w(Whitecms Admin)
+  # or for a more dynamic name:
+  # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
+
+  # RailsAdmin may need a way to know who the current user is]
+  config.current_user_method { current_user } # auto-generated
+
+  config.attr_accessible_role { :admin }
 
   config.authorize_with do
     redirect_to main_app.root_path unless current_user.try(:admin?)
@@ -33,13 +45,12 @@ RailsAdmin.config do |config|
     end
   end
 
-  # Set the admin name here (optional second array element will appear in red). For example:
-  config.main_app_name = ['Whitecms', 'Admin']
-  # or for a more dynamic name:
-  # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
+  config.audit_with :history, User
+  config.audit_with :history, Page
+  config.audit_with :history, Block
+  config.audit_with :history, BlockPosition
 
-  # RailsAdmin may need a way to know who the current user is]
-  config.current_user_method { current_user } # auto-generated
+  config.excluded_models = %w(Ckeditor::Asset Ckeditor::AttachmentFile Ckeditor::Picture)
 
   # If you want to track changes on your models:
   # config.audit_with :history, 'User'
@@ -65,27 +76,126 @@ RailsAdmin.config do |config|
 
   ################  Model configuration  ################
 
+  # Setting page model
   config.model Page do
+    weight 1
     nestable_tree({ position_field: :position, max_depth: 6 })
-    include_all_fields
+    list do
+      field :id
+      field :title
+      field :content do
+        formatted_value do
+          ActionController::Base.helpers.strip_tags(value)
+        end
+      end
+      field :updated_at
+      field :hidden do
+        column_width 70
+      end
+    end
     edit do
+      field :title
+      field :title_page
       field :content do
         ckeditor do
           true
+        end
+      end
+      group :links do
+        active false
+        field :link do
+          visible do
+            value != '/'
+          end
+        end
+        field :alias do
+          help false
+          visible do
+            !value.nil?
+          end
+        end
+      end
+      group :actions do
+        active false
+        field :to_first
+        field :redirect_to
+        field :hidden
+      end
+      group :head do
+        active false
+        field :title_seo
+        field :keywords
+        field :description
+      end
+      exclude_fields :position, :ancestry
+    end
+  end
+
+  # Setting block position model
+  config.model BlockPosition do
+    weight 2
+    navigation_label 'Blocks'
+    list do
+      field :id do
+        column_width 40
+      end
+      fields :name, :alias
+      field :hidden do
+        column_width 70
+      end
+    end
+    edit do
+      include_all_fields
+      field :blocks do
+        help false
+        visible do
+          value.present?
         end
       end
     end
   end
 
+  # Setting block model
   config.model Block do
-    include_all_fields
+    weight 3
+    parent BlockPosition
     nestable_list true
+    list do
+      field :id do
+        column_width 40
+      end
+      field :name
+      field :alias
+      field :content do
+        formatted_value do
+          ActionController::Base.helpers.strip_tags(value)
+        end
+      end
+      field :updated_at
+      field :hidden do
+        column_width 70
+      end
+    end
     edit do
+      include_all_fields
       field :content do
         ckeditor do
           true
         end
       end
+      exclude_fields :position
+    end
+  end
+
+  # Setting user model
+  config.model User do
+    weight 10
+    navigation_label 'Users'
+    list do
+      exclude_fields :reset_password_sent_at, :remember_created_at, :current_sign_in_at
+    end
+    edit do
+      fields :email, :password, :password_confirmation, :admin
     end
   end
 
