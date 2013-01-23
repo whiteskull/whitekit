@@ -1,0 +1,13 @@
+input[type='search'] {
+	width: 150px;
+}
+.well {
+	margin-top: -9px;
+}
+a {
+
+	&:hover {
+		text-decoration: none;
+	}
+}
+

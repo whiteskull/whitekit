@@ -35,7 +35,20 @@ RailsAdmin.config do |config|
     edit
     delete
     history_show
-    show_in_app
+    show_in_app do
+      visible do
+        %w(Page).include? bindings[:abstract_model].model_name
+      end
+      controller do
+        Proc.new do
+          if @object.alias.present?
+            redirect_to main_app.page_path(@object.alias)
+          else
+            redirect_to main_app.root_url
+          end
+        end
+      end
+    end
 
     # Add the nestable action for each model
     nestable do
@@ -45,10 +58,10 @@ RailsAdmin.config do |config|
     end
   end
 
-  config.audit_with :history, User
   config.audit_with :history, Page
-  config.audit_with :history, Block
   config.audit_with :history, BlockPosition
+  config.audit_with :history, Block
+  config.audit_with :history, User
 
   config.excluded_models = %w(Ckeditor::Asset Ckeditor::AttachmentFile Ckeditor::Picture)
 

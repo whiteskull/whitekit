@@ -1,2 +1,4 @@
-%h1= @page.title_page.presence || @page.title
-#content= raw @page.content
+= div_for @page do
+  %h1= @page.title_page.presence || @page.title
+  = raw @page.content
+= edit_page_for_admin

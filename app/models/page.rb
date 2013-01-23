@@ -6,6 +6,7 @@ class Page < ActiveRecord::Base
                   :link, :title_seo, :title_page, as: :admin
 
   validates_presence_of :title, :link
+  validates_uniqueness_of :alias, allow_blank: true
 
   before_validation :set_link
   before_update :position_main_page
@@ -28,7 +29,6 @@ class Page < ActiveRecord::Base
     if Page.first == self
       self.link = '/'
     else
-      self.link = 'root' if link == '/'
       field = link.blank? ? title : link
       self.link = Russian.translit(field.gsub(/ /, '-')).downcase
     end

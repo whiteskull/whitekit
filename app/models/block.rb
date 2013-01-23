@@ -21,6 +21,10 @@ class Block < ActiveRecord::Base
   # Get block content
   def self.view(block)
     content = where(alias: block).visible.first
-    content.content.html_safe if content.present?
+    if content.present?
+      ActionController::Base.helpers.div_for content do
+        content.content.html_safe
+      end
+    end
   end
 end

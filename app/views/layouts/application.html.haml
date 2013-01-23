@@ -3,8 +3,17 @@
   %head
     = render 'layouts/head'
   %body{id: controller_name}
-    = render 'layouts/main_menu'
-    = breadcrumbs @page if @page.present?
-    = render 'layouts/messages'
-    = yield
-    = Block.view :copyright
+    #wrapper
+      #header
+      #middle
+        #container
+          #content
+            = breadcrumbs @page if @page.present?
+            = render 'layouts/messages'
+            = yield
+        #side-left.sidebar
+          = render 'layouts/main_menu'
+        #side-right.sidebar
+          = BlockPosition.view :right
+    #footer
+      = Block.view :copyright

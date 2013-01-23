@@ -15,6 +15,11 @@ User.create({email: 'admin@mail.com', password: 'password', admin: true}, withou
 Page.delete_all
 Page.create({title: 'Main page', link: '/', position: 1}, without_protection: true)
 
+# Create block position
+BlockPosition.delete_all
+block_position = BlockPosition.create({name: 'Right column', alias: 'right', hidden: false}, as: :admin)
+
 # Create copyright block
 Block.delete_all
-Block.create({name: 'Copyright', alias: 'copyright', content: '<p><strong>© WhiteCMS</strong>, 2013</p>'})
+block_position.blocks.create({name: 'About WhiteCMS', alias: 'whitecms', content: '<strong>WhiteCMS</strong> is simple, convenient and safe'}, as: :admin)
+Block.create({name: 'Copyright', alias: 'copyright', content: '<p><strong>© WhiteCMS</strong>, 2013</p>'}, as: :admin)

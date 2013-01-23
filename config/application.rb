@@ -9,6 +9,8 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+ENV['RAILS_ADMIN_THEME'] = 'white'
+
 module Whitecms
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
