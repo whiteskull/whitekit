@@ -1,7 +1,9 @@
-%title= @title || 'Application'
+%title= @page.try(:title_seo).presence || @page.try(:title).presence
 = stylesheet_link_tag 'application', :media => "all"
 = javascript_include_tag 'application'
 - unless controller_name == 'sessions' || controller_name == 'registrations'
   = stylesheet_link_tag controller_name, :media => "all"
   = javascript_include_tag controller_name
+%meta{:content => @page.try(:keywords), :name => 'keywords'}/
+%meta{:content => @page.try(:description), :name => 'description'}/
 = csrf_meta_tags

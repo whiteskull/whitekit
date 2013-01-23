@@ -1,5 +1,4 @@
 Whitecms::Application.routes.draw do
-  get 'pages/index'
 
   mount Ckeditor::Engine => '/ckeditor'
 
@@ -7,9 +6,11 @@ Whitecms::Application.routes.draw do
 
   devise_for :users
 
-  root :to => 'general#index'
+  root :to => 'pages#index'
 
   post 'make_aliases' => 'general#make_aliases', as: 'make_aliases'
+
+  get '*alias' => 'pages#index', as: 'page'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

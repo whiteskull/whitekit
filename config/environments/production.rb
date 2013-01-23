@@ -61,6 +61,7 @@ Whitecms::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  # Include all js and css files in assets
   files = Dir[Rails.root.join('app', 'assets', '{javascripts,stylesheets}', '**', '[^_]*.{js,css}*')]
   files.map! {|file| file.sub(%r(#{Rails.root}/app/assets/(javascripts|stylesheets)/), '') }
   files.map! {|file| file.sub(%r(\.(coffee|scss)), '') }

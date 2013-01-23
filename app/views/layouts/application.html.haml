@@ -3,7 +3,8 @@
   %head
     = render 'layouts/head'
   %body{id: controller_name}
-    %p.notice{style: display_none_if(!notice)}= notice
-    %p.alert{style: display_none_if(!alert)}= alert
-    = render 'layouts/menu'
+    = render 'layouts/main_menu'
+    = breadcrumbs @page if @page.present?
+    = render 'layouts/messages'
     = yield
+    = BlockPosition.view :left

@@ -28,7 +28,7 @@ RailsAdmin.config do |config|
     # Add the nestable action for each model
     nestable do
       visible do
-        %w(Page).include? bindings[:abstract_model].model_name
+        %w(Page Block).include? bindings[:abstract_model].model_name
       end
     end
   end
@@ -66,8 +66,20 @@ RailsAdmin.config do |config|
   ################  Model configuration  ################
 
   config.model Page do
-    nestable_tree({ position_field: :position, max_depth: 4 })
+    nestable_tree({ position_field: :position, max_depth: 6 })
     include_all_fields
+    edit do
+      field :content do
+        ckeditor do
+          true
+        end
+      end
+    end
+  end
+
+  config.model Block do
+    include_all_fields
+    nestable_list true
     edit do
       field :content do
         ckeditor do

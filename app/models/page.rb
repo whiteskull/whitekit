@@ -2,7 +2,7 @@
 class Page < ActiveRecord::Base
   has_ancestry
 
-  attr_accessible :content, :description, :hidden, :keywords, :redirect_to, :title, :to_first, :link
+  attr_accessible :content, :description, :hidden, :keywords, :redirect_to, :title, :to_first, :link, :title_seo, :title_page
 
   validates_presence_of :title, :link
 
@@ -12,6 +12,8 @@ class Page < ActiveRecord::Base
   before_destroy :main_page
 
   scope :visible, where(hidden: false)
+  scope :get_by_alias, lambda { |name| name.present? ? where(alias: name).visible : visible  }
+  scope :sort_by_position, order('position ASC')
 
   private
 
@@ -20,7 +22,7 @@ class Page < ActiveRecord::Base
     false if Page.first == self
   end
 
-  # Set page link, also translit russian to english
+  # Set page link if empty, also translit russian to english
   def set_link
     if Page.first == self
       self.link = '/'
@@ -42,19 +44,16 @@ class Page < ActiveRecord::Base
 
   # Make aliases for all pages
   def self.make_aliases
-    menus = roots
-
-    menus.each do |menu|
-      Page.make_alias(menu.children)
+    roots.each do |menu|
+      self.make_alias(menu.children)
     end
   end
 
   def self.make_alias(menus, path = '')
     menus.each do |menu|
       alias_link = path + '/' + menu.link
-      menu.update_attribute(:alias, alias_link)
-
-      Page.make_alias(menu.children, alias_link)
+      menu.update_attribute(:alias, alias_link[1..-1])
+      self.make_alias(menu.children, alias_link)
     end
   end
 

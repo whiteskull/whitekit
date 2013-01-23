@@ -1,7 +1,4 @@
 class GeneralController < ApplicationController
-  def index
-  end
-
   # POST /make_aliases
   def make_aliases
     if current_user.try(:admin?)

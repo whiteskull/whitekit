@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Get main menu from pages
   def get_main_menu
-    main_menu = Page.first
-    @main_menu = main_menu.children.visible
+    @main_menu = Page.arrange(order: :position)
   end
 end

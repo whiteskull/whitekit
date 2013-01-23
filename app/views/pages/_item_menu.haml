@@ -1,0 +1,2 @@
+%li.page
+  = link_to_if item.alias != params[:alias], item.title, page_path(item.alias)
