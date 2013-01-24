@@ -1,5 +1,5 @@
 require 'i18n'
-I18n.default_locale = :en
+I18n.default_locale = :ru
 # RailsAdmin config file. Generated on January 21, 2013 10:20
 # See github.com/sferik/rails_admin for more informations
 
@@ -8,7 +8,7 @@ RailsAdmin.config do |config|
   ################  Global configuration  ################
 
   # Set the admin name here (optional second array element will appear in red). For example:
-  config.main_app_name = %w(Whitecms Admin)
+  config.main_app_name = %w(WhiteCMS Admin)
   # or for a more dynamic name:
   # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
 
@@ -115,6 +115,7 @@ RailsAdmin.config do |config|
         end
       end
       group :links do
+        label I18n.t('admin.group_fields.links')
         active false
         field :link do
           visible do
@@ -129,12 +130,14 @@ RailsAdmin.config do |config|
         end
       end
       group :actions do
+        label I18n.t('admin.group_fields.actions')
         active false
         field :to_first
         field :redirect_to
         field :hidden
       end
       group :head do
+        label I18n.t('admin.group_fields.head')
         active false
         field :title_seo
         field :keywords
@@ -147,7 +150,7 @@ RailsAdmin.config do |config|
   # Setting block position model
   config.model BlockPosition do
     weight 2
-    navigation_label 'Blocks'
+    navigation_label I18n.t('admin.misc.navigation_blocks')
     list do
       field :id do
         column_width 40
@@ -203,7 +206,7 @@ RailsAdmin.config do |config|
   # Setting user model
   config.model User do
     weight 10
-    navigation_label 'Users'
+    navigation_label I18n.t('admin.misc.navigation_users')
     list do
       exclude_fields :reset_password_sent_at, :remember_created_at, :current_sign_in_at
     end

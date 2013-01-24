@@ -1,4 +1,57 @@
 ru:
+  activerecord:
+    models:
+      block_position: "Позиции блоков"
+      block: "Блоки"
+      page: "Страницы"
+      user: 'Пользователи'
+    attributes:
+      page:
+        title: "Название"
+        title_page: "Заголовок страницы"
+        content: "Содержимое"
+        link: "Название"
+        alias: "Полный путь"
+        to_first: "На первую страницу"
+        redirect_to: "Переход на страницу"
+        hidden: 'Скрытая'
+        title_seo: 'Заголовок'
+        keywords: 'Ключевые слова'
+        description: 'Краткое описание'
+        ancestry: 'Родословная'
+        position: 'Позиция'
+        created_at: 'Создана'
+        updated_at: 'Обновлена'
+      block_position:
+        name: "Название"
+        alias: "Псевдоним"
+        hidden: "Скрытый"
+        blocks: 'Блоки'
+        created_at: 'Создана'
+        updated_at: 'Обновлена'
+      block:
+        name: "Название"
+        alias: "Псевдоним"
+        content: "Содержимое"
+        hidden: "Скрытый"
+        block_position: "Позиция блока"
+        created_at: 'Создан'
+        updated_at: 'Обновлен'
+        position: 'Позиция'
+      user:
+        email: 'Электронная почта'
+        password: 'Пароль'
+        password_confirmation: 'Подтверждение'
+        reset_password_sent_at: 'Восстановление пароля выслано'
+        remember_created_at: 'Запомнить создано'
+        sign_in_count: 'Кол-во входов'
+        current_sign_in_at: 'Текущий вход'
+        last_sign_in_at: 'Последний вход'
+        current_sign_in_ip: 'Текущий вход ip'
+        last_sign_in_ip: 'Последний вход ip'
+        created_at: 'Создан'
+        updated_at: 'Обновлен'
+        admin: 'Администратор'
   admin:
     home:
       name: "На сайт"
@@ -6,6 +59,10 @@ ru:
       previous: "&laquo; Предыдущая"
       next: "Следующая &raquo;"
       truncate: "…"
+    group_fields:
+      links: 'Ссылки'
+      actions: 'Действия'
+      head: 'Заголовки'
     misc:
       filter_date_format: "dd/mm/yy" # a combination of 'dd', 'mm' and 'yy' with any delimiter. No other interpolation will be done!
       search: "Поиск"
@@ -22,9 +79,13 @@ ru:
       up: "Вверх"
       down: "Вниз"
       navigation: "Навигация"
-      navigation_static_label: "Ссылки"
+      navigation_blocks: 'Блоки'
+      navigation_users: 'Пользователи'
       log_out: "Выйти"
       ago: "назад"
+      make_aliases: "Сделать псевдонимы"
+      made_aliases: "Псевдонимы сделаны"
+      analytics: "Аналитика"
     flash:
       successful: "Успешно!"
       error: "Призошла ошбика!"
@@ -86,18 +147,18 @@ ru:
         breadcrumb: "Множественное удаление"
         bulk_link: "Удалить выбранные %{model_label_plural}"
       export:
-        title: "Экспорт %{model_label_plural}"
+        title: "Экспорт '%{model_label_plural}'"
         menu: "Экспорт"
         breadcrumb: "Экспорт"
-        link: "Экспорт %{model_label_plural}"
-        bulk_link: "Экспортировать выбранные %{model_label_plural}"
+        link: "Экспорт '%{model_label_plural}'"
+        bulk_link: "Экспортировать выбранные '%{model_label_plural}'"
         done: "экспортировано"
       history_index:
-        title: "История для %{model_label_plural}"
+        title: "История для '%{model_label_plural}'"
         menu: "История"
         breadcrumb: "История"
       history_show:
-        title: "История для %{model_label} '%{object_label}'"
+        title: "История для '%{model_label}': '%{object_label}'"
         menu: "История"
         breadcrumb: "История"
     form:
@@ -112,15 +173,15 @@ ru:
       save_and_add_another: "Сохранить и добавить еще"
       save_and_edit: "Сохранить и редактировать"
       all_of_the_following_related_items_will_be_deleted: "? Следующие связанные элементы могут быть удалены:"
-      are_you_sure_you_want_to_delete_the_object: "Вы уверены, что хотите удалить %{model_name}"
+      are_you_sure_you_want_to_delete_the_object: "Вы уверены, что хотите удалить '%{model_name}'"
       confirmation: "Да, я уверен"
       bulk_delete: "Следующие элементы будут удалены, которые можно удалить с ними связанных зависимостей:"
       new_model: "%{name} (new)"
     export:
       confirmation: "Экспортировать в %{name}"
       select: "Выбрать поля для экспорта"
-      fields_from: "Поля из %{name}"
-      fields_from_associated: "Поля из связанной %{name}"
+      fields_from: "Поля из '%{name}'"
+      fields_from_associated: "Поля из связанной таблицы '%{name}'"
       display: "Отображать %{name}: %{type}"
       options_for: "Настройка %{name}"
       empty_value_for_associated_objects: "<пусто>"

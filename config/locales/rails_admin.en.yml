@@ -1,0 +1,11 @@
+en:
+  admin:
+    group_fields:
+      links: 'Links'
+      actions: 'Actions'
+      head: 'Head'
+    misc:
+      navigation_blocks: 'Blocks'
+      make_aliases: "Make aliases"
+      made_aliases: "Aliases are made"
+      analytics: "Analytics"
