@@ -1,0 +1,37 @@
+#whitecms-tools {
+  z-index: 99999;
+	position: fixed;
+	top: 0;
+	right: 0;
+	padding: 10px 10px 10px 20px;
+	background: #999;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+
+	img {
+		opacity: 0.5;
+		filter: alpha(opacity=50);
+	}
+	.whitecms-slide-panel {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 20px;
+		height: 68px;
+    cursor: pointer;
+
+    opacity: 0.3;
+    filter: alpha(opacity=30);
+
+    &.w-open {
+      background: #333 url(<%= asset_path('white/right.png') %>) 2px 2px;
+    }
+    &.w-close {
+      background: #333 url(<%= asset_path('white/left.png') %>) 2px 2px;
+    }
+	}
+}
+.whitecms-hover {
+  background: #ffdead;
+  cursor: pointer;
+}

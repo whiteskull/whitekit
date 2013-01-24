@@ -3,8 +3,10 @@
   %head
     = render 'layouts/head'
   %body{id: controller_name}
+    = render 'layouts/rails_admin/white/tools'
     #wrapper
       #header
+        = render 'devise/menu/auth_items'
       #middle
         #container
           #content

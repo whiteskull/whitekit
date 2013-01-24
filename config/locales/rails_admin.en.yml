@@ -6,6 +6,7 @@ en:
       head: 'Head'
     misc:
       navigation_blocks: 'Blocks'
+      navigation_users: 'Users'
       make_aliases: "Make aliases"
       made_aliases: "Aliases are made"
       analytics: "Analytics"

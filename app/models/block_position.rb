@@ -25,12 +25,12 @@ class BlockPosition < ActiveRecord::Base
       content_html = ''
       blocks.each do |block|
         if block.content.present?
-          content_html << ActionController::Base.helpers.div_for(block) do
+          content_html << ActionController::Base.helpers.div_for(block, :white) do
             block.content.html_safe
           end
         end
       end
-      ActionController::Base.helpers.div_for block_position do
+      ActionController::Base.helpers.div_for block_position, :white do
         content_html.html_safe
       end
     end

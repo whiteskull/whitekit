@@ -15,7 +15,7 @@ $ cd whitecms
 $ bundle install
 ```
 
-After install gems you need create database and load basic data
+After install gems you need to create database and load basic data
 
 ```bash
 $ rake db:setup
@@ -24,7 +24,7 @@ That's it! Now you can start the server
 
 ## Description of Contents
 
-The default directory structure of a generated Ruby on Rails application:
+The default directory structure application:
 
 ```
 |-- app    > Holds all the code that's specific to this particular application.
@@ -76,7 +76,7 @@ The default directory structure of a generated Ruby on Rails application:
     `-- plugins
 ```
 
-## [Rails Admin][rails_admin]
+## The administrative back-end is based on [Rails Admin][rails_admin]
 
 [![Gem Version](https://badge.fury.io/rb/rails_admin.png)][gem]
 
@@ -91,7 +91,7 @@ password: password
 
 ### I18n rails admin
 
-In file config/initializers/rails_admin.rb change language key (default :en)
+In file **config/initializers/rails_admin.rb** change language key (default :en)
 
 ```ruby
 I18n.default_locale = :en
@@ -101,7 +101,7 @@ I18n.default_locale = :en
 
 [ckeditor]: https://github.com/galetahub/ckeditor
 
-Add to rails_admin.rb:
+Add to **rails_admin.rb**
 
 ```ruby
 config.model ModelName do

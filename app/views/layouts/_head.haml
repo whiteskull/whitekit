@@ -4,6 +4,9 @@
 - unless controller_name == 'sessions' || controller_name == 'registrations'
   = stylesheet_link_tag controller_name, :media => "all"
   = javascript_include_tag controller_name
+- if admin?
+  = stylesheet_link_tag 'rails_admin/white/styles', :media => "all"
+  = javascript_include_tag 'rails_admin/white/controls'
 %meta{:content => @page.try(:keywords), :name => 'keywords'}/
 %meta{:content => @page.try(:description), :name => 'description'}/
 = csrf_meta_tags

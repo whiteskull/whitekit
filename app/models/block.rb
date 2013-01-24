@@ -22,7 +22,7 @@ class Block < ActiveRecord::Base
   def self.view(block)
     content = where(alias: block).visible.first
     if content.present?
-      ActionController::Base.helpers.div_for content do
+      ActionController::Base.helpers.div_for content, :white do
         content.content.html_safe
       end
     end
