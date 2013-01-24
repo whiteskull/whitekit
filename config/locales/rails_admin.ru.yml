@@ -93,6 +93,7 @@ ru:
       model_not_found: "Таблица '%{model}' не найдена"
       object_not_found: "%{model} с id '%{id}' не может быть найдена"
     table_headers:
+      items: "Элемент"
       model_name: "Название таблицы"
       last_used: "Последнее изменение"
       records: "Записи"
