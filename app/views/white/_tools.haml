@@ -4,7 +4,12 @@
                                  class: "#{if cookies['whitecms-tools'].blank? then 'visible' end}"}
     .whitecms-slide-panel.w-close{style: "#{if cookies['whitecms-tools'].blank? then 'display: none;' end}",
                                   class: "#{if cookies['whitecms-tools'] == 'closed' then 'visible' end}"}
-    = link_to image_tag('white/cache.png'), rails_admin_path
+
+    #whitecms-caches
+      = link_to image_tag('white/cache.png'), white_clear_caches_path, id: 'whitecms-clear-caches', remote: true, method: :post
+      = image_tag 'white/loader.gif', id: 'whitecms-clear-caches-loader', style: 'display: none;'
+      = image_tag 'white/cache_ok.png', id: 'whitecms-clear-caches-cleared', style: 'display: none;'
     = link_to image_tag('white/tree.png'), '/admin/page/nestable'
     = link_to image_tag('white/users.png'), '/admin/user'
     = link_to image_tag('white/dashboard.png'), rails_admin_path
+    = link_to image_tag("white/#{if cookies['whitecms-edit'] == 'on' then 'on.png' else 'off.png' end}"), '#', id: 'whitecms-edit'

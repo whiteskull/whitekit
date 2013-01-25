@@ -25,9 +25,7 @@ class BlockPosition < ActiveRecord::Base
       content_html = ''
       blocks.each do |block|
         if block.content.present?
-          content_html << ActionController::Base.helpers.div_for(block, :white) do
-            block.content.html_safe
-          end
+          content_html << Block.get_block(block, '')
         end
       end
       ActionController::Base.helpers.div_for block_position, :white do

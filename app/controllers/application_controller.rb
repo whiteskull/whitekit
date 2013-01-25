@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-
   before_filter :get_main_menu
 
   protect_from_forgery

@@ -1,5 +1,5 @@
 require 'i18n'
-I18n.default_locale = :en
+I18n.default_locale = :ru
 
 # RailsAdmin config file. Generated on January 21, 2013 10:20
 # See github.com/sferik/rails_admin for more informations
@@ -199,6 +199,16 @@ RailsAdmin.config do |config|
         ckeditor do
           true
         end
+      end
+      group :visibility do
+        label I18n.t('admin.group_fields.visibility')
+        active false
+        field :visibility_condition, :enum do
+          enum do
+            {I18n.t('admin.fields_values.block.visible_condition.only') => 'only', I18n.t('admin.fields_values.block.visible_condition.except') => 'except'}
+          end
+        end
+        field :visibility
       end
       exclude_fields :position
     end

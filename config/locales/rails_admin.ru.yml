@@ -35,6 +35,8 @@ ru:
         content: "Содержимое"
         hidden: "Скрытый"
         block_position: "Позиция блока"
+        visibility: "Страницы"
+        visibility_condition: "Условие видимости"
         created_at: 'Создан'
         updated_at: 'Обновлен'
         position: 'Позиция'
@@ -53,6 +55,11 @@ ru:
         updated_at: 'Обновлен'
         admin: 'Администратор'
   admin:
+    fields_values:
+      block:
+        visible_condition:
+          only: 'Только на всех перечисленных страницах'
+          except: 'Все страницы, кроме перечисленных'
     home:
       name: "На сайт"
     pagination:
@@ -63,6 +70,7 @@ ru:
       links: 'Ссылки'
       actions: 'Действия'
       head: 'Заголовки'
+      visibility: "Видимость"
     misc:
       filter_date_format: "dd/mm/yy" # a combination of 'dd', 'mm' and 'yy' with any delimiter. No other interpolation will be done!
       search: "Поиск"

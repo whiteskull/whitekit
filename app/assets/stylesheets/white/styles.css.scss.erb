@@ -12,6 +12,13 @@
 		opacity: 0.5;
 		filter: alpha(opacity=50);
 	}
+	#whitecms-caches {
+    float: left;
+
+    #whitecms-clear-caches-loader {
+      padding: 8px;
+    }
+  }
 	.whitecms-slide-panel {
 		position: absolute;
 		left: 0;
@@ -24,10 +31,10 @@
     filter: alpha(opacity=30);
 
     &.w-open {
-      background: #333 url(<%= asset_path('white/right.png') %>) 2px 2px;
+      background: #333 url(<%= asset_path('white/right.png') %>) 2px 13px no-repeat;
     }
     &.w-close {
-      background: #333 url(<%= asset_path('white/left.png') %>) 2px 2px;
+      background: #333 url(<%= asset_path('white/left.png') %>) 2px 13px no-repeat;
     }
 	}
 }

@@ -7,7 +7,6 @@ window.WhitecmsControl =
       unescape ( result[2] )
     else
       ''
-
   # set cookie
   cookie_set: (name, value, days = 30)->
     oDate = new Date()
@@ -23,10 +22,10 @@ window.WhitecmsControl =
 $(document).ready ->
 
   # Hover on tools and image
-  $('#whitecms-tools, #whitecms-tools img').hover ->
+  $('#whitecms-tools, #whitecms-tools a img').hover ->
     if $('#whitecms-tools .whitecms-slide-panel.w-open').hasClass('visible') || $('#whitecms-tools .whitecms-slide-panel.w-close').hasClass('visible')
       $(this).stop().fadeTo(400, 1)
-  , ->
+  ,->
     if $('#whitecms-tools .whitecms-slide-panel.w-open').hasClass('visible') || $('#whitecms-tools .whitecms-slide-panel.w-close').hasClass('visible')
       $(this).stop().fadeTo(400, 0.5)
 
@@ -34,7 +33,7 @@ $(document).ready ->
   $('#whitecms-tools .whitecms-slide-panel').hover ->
     if $(this).hasClass('visible')
       $(this).stop().fadeTo(400, 0.7)
-  , ->
+  ,->
     if $(this).hasClass('visible')
       $(this).stop().fadeTo(400, 0.3)
 
@@ -59,12 +58,54 @@ $(document).ready ->
 
   # Hover on editable blocks
   $('.white_block').hover ->
-    $(this).addClass('whitecms-hover')
-  , ->
-    $(this).removeClass('whitecms-hover')
+    edit = WhitecmsControl.cookie('whitecms-edit')
+    if edit == 'on'
+      $(this).addClass('whitecms-hover')
+  ,->
+    edit = WhitecmsControl.cookie('whitecms-edit')
+    if edit == 'on'
+      $(this).removeClass('whitecms-hover')
 
   # Click on editable blocks
   $('.white_block').click ->
-    block = $(this).attr('id')
-    id = parseInt(block.split('_').slice(-1)[0])
-    document.location.href = "/admin/block/#{id}/edit"
+    edit = WhitecmsControl.cookie('whitecms-edit')
+    if edit == 'on'
+      block = $(this).attr('id')
+      id = parseInt(block.split('_').slice(-1)[0])
+      document.location.href = "/admin/block/#{id}/edit"
+
+  # Click on edit in tools
+  $('#whitecms-tools #whitecms-edit').click (e)->
+    e.preventDefault()
+    edit = WhitecmsControl.cookie('whitecms-edit')
+    console.log(edit);
+    if edit == 'on'
+      WhitecmsControl.cookie_delete('whitecms-edit')
+      document.location.reload()
+    else
+      WhitecmsControl.cookie_set('whitecms-edit', 'on')
+      document.location.reload()
+
+  # Click on clear caches in tools
+  $('#whitecms-tools #whitecms-clear-caches').click ->
+    $(this).remove()
+    $('#whitecms-tools #whitecms-clear-caches-loader').show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -3,7 +3,7 @@
   %head
     = render 'layouts/head'
   %body{id: controller_name}
-    = render 'layouts/rails_admin/white/tools'
+    = render 'white/tools' # need for admin
     #wrapper
       #header
         = render 'devise/menu/auth_items'
@@ -16,6 +16,7 @@
         #side-left.sidebar
           = render 'layouts/main_menu'
         #side-right.sidebar
-          = BlockPosition.view :right
+          -#= block_position_view :right
     #footer
-      = Block.view :copyright
+      = block_view :copyright
+      = block_view :copyright_2

@@ -1,7 +1,7 @@
 %ul.nav.pull-right
   - actions(:root).each do |action|
     %li#make-aliases
-      = button_to t('admin.misc.make_aliases'), main_app.make_aliases_path, remote: true, class: 'btn', form: {style: 'margin-bottom: 0'}
+      = button_to t('admin.misc.make_aliases'), main_app.white_make_aliases_path, remote: true, class: 'btn', form: {style: 'margin-bottom: 0'}
     %li= link_to t('admin.misc.analytics'), 'http://google.com/analytics', target: '_blank'
     %li= link_to wording_for(:menu, action), { :action => action.action_name, :controller => 'rails_admin/main' }, :class => 'pjax'
   - if main_app_root_path = (main_app.root_path rescue false)

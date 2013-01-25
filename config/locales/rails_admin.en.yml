@@ -1,5 +1,14 @@
 en:
+  activerecord:
+    attributes:
+      block:
+        visibility: "Pages"
   admin:
+    fields_values:
+      block:
+        visible_condition:
+          only: 'Only on all of the pages'
+          except: 'All pages except listed'
     group_fields:
       links: 'Links'
       actions: 'Actions'

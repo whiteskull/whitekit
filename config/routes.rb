@@ -1,5 +1,8 @@
 Whitecms::Application.routes.draw do
 
+  post 'white/make_aliases' => 'white::general#make_aliases', as: 'white_make_aliases'
+  post 'white/clear_caches' => 'white::general#clear_caches', as: 'white_clear_caches'
+
   mount Ckeditor::Engine => '/ckeditor'
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
@@ -7,8 +10,6 @@ Whitecms::Application.routes.draw do
   devise_for :users
 
   root :to => 'pages#index'
-
-  post 'make_aliases' => 'general#make_aliases', as: 'make_aliases'
 
   get '*alias' => 'pages#index', as: 'page'
 

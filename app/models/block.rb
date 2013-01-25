@@ -1,8 +1,9 @@
+# coding: utf-8
 class Block < ActiveRecord::Base
   belongs_to :block_position
 
   attr_accessible :block_position_id, as: :admin
-  attr_accessible :alias, :content, :hidden, :name, as: :admin
+  attr_accessible :alias, :content, :hidden, :name, :visibility, :visibility_condition, as: :admin
 
   validates :alias, presence: true, uniqueness: true
   validates :name, presence: true
@@ -19,11 +20,18 @@ class Block < ActiveRecord::Base
   end
 
   # Get block content
-  def self.view(block)
+  def self.view(block, path)
     content = where(alias: block).visible.first
-    if content.present?
-      ActionController::Base.helpers.div_for content, :white do
-        content.content.html_safe
+    get_block(content, path)
+  end
+
+  def self.get_block(block, path)
+    if block.present?
+
+      if path[1..-1] =~ /^first-page|^third-page/
+        ActionController::Base.helpers.div_for block, :white do
+          block.content.html_safe
+        end
       end
     end
   end

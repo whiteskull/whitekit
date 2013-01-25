@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130123100832) do
+ActiveRecord::Schema.define(:version => 20130125131322) do
 
   create_table "block_positions", :force => true do |t|
     t.string   "name"
@@ -25,11 +25,13 @@ ActiveRecord::Schema.define(:version => 20130123100832) do
     t.string   "name"
     t.string   "alias"
     t.text     "content"
-    t.boolean  "hidden",            :default => false
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.boolean  "hidden",               :default => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.integer  "position"
     t.integer  "block_position_id"
+    t.text     "visibility"
+    t.string   "visibility_condition"
   end
 
   create_table "ckeditor_assets", :force => true do |t|
