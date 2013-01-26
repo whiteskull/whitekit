@@ -1,5 +1,4 @@
 class PagesController < ApplicationController
-
   # View page
   # GET /some/page
   def index

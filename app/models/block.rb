@@ -6,7 +6,7 @@ class Block < ActiveRecord::Base
   attr_accessible :alias, :content, :hidden, :name, :visibility, :visibility_condition, as: :admin
 
   validates :alias, presence: true, uniqueness: true
-  validates :name, presence: true
+  validates :name, :visibility_condition, presence: true
 
   before_save :alias_processing
 
@@ -28,11 +28,35 @@ class Block < ActiveRecord::Base
   def self.get_block(block, path)
     if block.present?
 
-      if path[1..-1] =~ /^first-page|^third-page/
+      pages = block.visibility.delete("^\u{0000}-\u{007F}").split("\r\n").unshift('')
+
+      if pages.count > 1
+        search = pages.inject do |sum, str|
+          str.strip!
+          reg = if str.last == '*'
+                  "|^\/#{str[0..-2]}"
+                elsif str == '<front>'
+                  "|^\/$"
+                elsif str.present?
+                  "|^\/#{str}$"
+                end
+          sum += reg ? reg : ''
+        end
+        search.gsub!(/\//, '\/')[1..-1] if search.present?
+      end
+
+      condition = if block.visibility_condition == 'except'
+                    path !~ /#{search.presence}/
+                  else
+                    path =~ /#{search.presence}/
+                  end
+
+      if condition
         ActionController::Base.helpers.div_for block, :white do
           block.content.html_safe
         end
       end
+
     end
   end
 end

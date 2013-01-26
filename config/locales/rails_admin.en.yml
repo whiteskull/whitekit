@@ -13,6 +13,7 @@ en:
       links: 'Links'
       actions: 'Actions'
       head: 'Head'
+      visibility: 'Visibility'
     misc:
       navigation_blocks: 'Blocks'
       navigation_users: 'Users'
