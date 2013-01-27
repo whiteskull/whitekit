@@ -3,7 +3,7 @@ class Block < ActiveRecord::Base
   belongs_to :block_position
 
   attr_accessible :block_position_id, as: :admin
-  attr_accessible :alias, :content, :hidden, :name, :visibility, :visibility_condition, as: :admin
+  attr_accessible :alias, :content, :hidden, :name, :visibility, :visibility_condition, :component, as: :admin
 
   validates :alias, presence: true, uniqueness: true
   validates :name, :visibility_condition, presence: true
@@ -20,11 +20,33 @@ class Block < ActiveRecord::Base
   end
 
   # Get block content
-  def self.view(block, path)
-    content = where(alias: block).visible.first
-    get_block(content, path)
+  def self.get(block, path)
+    block = where(alias: block).visible.first
+    if block.component.present?
+      get_component(block)
+    else
+      get_block(block, path)
+    end
   end
 
+  # Get component
+  def self.get_component(block)
+    class_name = "#{block.component.capitalize}Component"
+    if class_exists?(class_name)
+      component = eval(class_name).new
+      {components: block.component.downcase, result: component.result, block: block}
+    end
+  end
+
+  # Check if class of component exists
+  def self.class_exists?(class_name)
+    klass = Module.const_get(class_name)
+    return klass.is_a?(Class)
+  rescue NameError
+    return false
+  end
+
+  # Get block content
   def self.get_block(block, path)
     if block.present?
 
@@ -51,12 +73,7 @@ class Block < ActiveRecord::Base
                     path =~ /#{search.presence}/
                   end
 
-      if condition
-        ActionController::Base.helpers.div_for block, :white do
-          block.content.html_safe
-        end
-      end
-
+      block if condition
     end
   end
 end

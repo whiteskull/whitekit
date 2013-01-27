@@ -2,4 +2,4 @@
   - cache "whitecms-block-position-#{block_position_alias}" do
     = BlockPosition.view block_position_alias
 - else
-  = BlockPosition.view block_position_alias
+  = render_block_position block_position_alias
