@@ -9,15 +9,15 @@ module White::GeneralHelper
   end
 
   # render block position
-  def render_block_position(block_position_alias)
-    block_position = BlockPosition.get(block_position_alias).first
+  def render_block_position(block_position_alias, path_info)
+    block_position = BlockPosition.includes(:blocks).get(block_position_alias).first
 
     if block_position.present?
       blocks = block_position.blocks.visible
       content_html = ''
-      # TODO: get component of block and path
       blocks.each do |block|
-        content_html << whitecms_block(block)
+        block_ = Block.get block, path_info
+        content_html << whitecms_block(block_) if block_.present?
       end
       ActionController::Base.helpers.div_for block_position, :white do
         content_html.html_safe
@@ -34,17 +34,19 @@ module White::GeneralHelper
   private
 
   def whitecms_block(block)
-    # if block is component
-    if block.is_a?(Hash) && block[:components]
-      content = render partial: "components/#{block[:components]}/index", locals: {result: block[:result]}
-      block = block[:block]
-    elsif block.content.present?
-        content = block.content.html_safe
-    else
-      content = user_signed_in? && current_user.admin? && cookies['whitecms-edit'] == 'on' ? "[#{block.alias}]" : ''
-    end
-    ActionController::Base.helpers.div_for block, :white do
-      content
+    if block.present?
+      # if block is component
+      if block.is_a?(Hash) && block[:components]
+        content = render partial: "components/#{block[:components]}/index", locals: {vars: block[:vars]}
+        block = block[:block]
+      elsif block.content.present?
+          content = block.content.html_safe
+      else
+        content = user_signed_in? && current_user.admin? && cookies['whitecms-edit'] == 'on' ? "[#{block.alias}]" : ''
+      end
+      ActionController::Base.helpers.div_for block, :white do
+        content
+      end
     end
   end
 end

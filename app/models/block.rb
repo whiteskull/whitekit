@@ -21,37 +21,17 @@ class Block < ActiveRecord::Base
 
   # Get block content
   def self.get(block, path)
-    block = where(alias: block).visible.first
-    if block.component.present?
-      get_component(block)
-    else
-      get_block(block, path)
+
+    # If given alias then get block
+    if block.is_a?(Symbol)
+      block = where(alias: block).visible.first
     end
-  end
 
-  # Get component
-  def self.get_component(block)
-    class_name = "#{block.component.capitalize}Component"
-    if class_exists?(class_name)
-      component = eval(class_name).new
-      {components: block.component.downcase, result: component.result, block: block}
-    end
-  end
-
-  # Check if class of component exists
-  def self.class_exists?(class_name)
-    klass = Module.const_get(class_name)
-    return klass.is_a?(Class)
-  rescue NameError
-    return false
-  end
-
-  # Get block content
-  def self.get_block(block, path)
     if block.present?
 
       pages = block.visibility.delete("^\u{0000}-\u{007F}").split("\r\n").unshift('')
 
+      search = ''
       if pages.count > 1
         search = pages.inject do |sum, str|
           str.strip!
@@ -64,16 +44,45 @@ class Block < ActiveRecord::Base
                 end
           sum += reg ? reg : ''
         end
-        search.gsub!(/\//, '\/')[1..-1] if search.present?
+        search.gsub!(/\//, '\/') if search.present?
       end
 
-      condition = if block.visibility_condition == 'except'
-                    path !~ /#{search.presence}/
+      condition = if search.length == 0
+                    true
+                  elsif block.visibility_condition == 'except'
+                    path !~ /#{search[1..-1].presence}/
                   else
-                    path =~ /#{search.presence}/
+                    path =~ /#{search[1..-1].presence}/
                   end
 
-      block if condition
+      # Get block content or component if it visible
+      if condition
+        if block.component.present?
+          get_component(block)
+        else
+          block
+        end
+      end
+
     end
+
+  end
+
+  # Get component
+  def self.get_component(block)
+    class_name = "#{block.component.capitalize}Component"
+    if class_exists?(class_name)
+      component = eval(class_name).new
+      component.main
+      {components: block.component.downcase, vars: component.vars, block: block}
+    end
+  end
+
+  # Check if class of component exists
+  def self.class_exists?(class_name)
+    klass = Module.const_get(class_name)
+    return klass.is_a?(Class)
+  rescue NameError
+    return false
   end
 end
