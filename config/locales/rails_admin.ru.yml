@@ -71,6 +71,7 @@ ru:
       actions: 'Действия'
       head: 'Заголовки'
       visibility: "Видимость"
+      component: "Компонент"
     misc:
       filter_date_format: "dd/mm/yy" # a combination of 'dd', 'mm' and 'yy' with any delimiter. No other interpolation will be done!
       search: "Поиск"

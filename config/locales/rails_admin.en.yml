@@ -14,6 +14,7 @@ en:
       actions: 'Actions'
       head: 'Head'
       visibility: 'Visibility'
+      component: 'Component'
     misc:
       navigation_blocks: 'Blocks'
       navigation_users: 'Users'

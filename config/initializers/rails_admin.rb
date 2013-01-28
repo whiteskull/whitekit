@@ -200,6 +200,19 @@ RailsAdmin.config do |config|
           true
         end
       end
+      group :components do
+        label I18n.t('admin.group_fields.component')
+        active false
+        field :component, :enum do
+          enum do
+            component = Dir[Rails.root.join('lib', 'components', '*.rb').to_s].map do |file|
+              file.split('_component').first.split('/').last
+            end
+            component.delete('base')
+            component
+          end
+        end
+      end
       group :visibility do
         label I18n.t('admin.group_fields.visibility')
         active false
