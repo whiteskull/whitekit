@@ -37,7 +37,7 @@ module White::GeneralHelper
     if block.present?
       # if block is component
       if block.is_a?(Hash) && block[:components]
-        content = render partial: "components/#{block[:components]}/index", locals: {vars: block[:vars]}
+        content = render partial: "components/#{block[:components]}/index", locals: {vars: block[:vars], block: block}
         block = block[:block]
       elsif block.content.present?
           content = block.content.html_safe
