@@ -4,7 +4,8 @@
 class BaseComponent
   attr_reader :vars
 
-  def initialize
+  def initialize(options = {})
+    @options = options
     @vars = {}
   end
 

@@ -188,6 +188,7 @@ RailsAdmin.config do |config|
           ActionController::Base.helpers.strip_tags(value)
         end
       end
+      field :component
       field :updated_at
       field :hidden do
         column_width 70
@@ -212,6 +213,7 @@ RailsAdmin.config do |config|
             component
           end
         end
+        field :component_params
       end
       group :visibility do
         label I18n.t('admin.group_fields.visibility')

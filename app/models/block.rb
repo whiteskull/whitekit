@@ -3,7 +3,8 @@ class Block < ActiveRecord::Base
   belongs_to :block_position
 
   attr_accessible :block_position_id, as: :admin
-  attr_accessible :alias, :content, :hidden, :name, :visibility, :visibility_condition, :component, as: :admin
+  attr_accessible :alias, :content, :hidden, :name, :visibility, :visibility_condition,
+                  :component, :component_params, as: :admin
 
   validates :alias, presence: true, uniqueness: true
   validates :name, :visibility_condition, presence: true
@@ -70,9 +71,11 @@ class Block < ActiveRecord::Base
 
   # Get component
   def self.get_component(block)
-    class_name = "#{block.component.capitalize}Component"
+    class_name = "#{block.component.camelize}Component"
     if class_exists?(class_name)
-      component = eval(class_name).new
+      component_params = block.component_params.gsub(/ /, '').delete("^\u{0000}-\u{007F}").split(/\r\n|:/)
+      # TODO: make right hash params
+      component = eval(class_name).new(Hash[*component_params])
       component.main
       {vars: component.vars, block: block}
     end

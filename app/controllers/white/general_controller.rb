@@ -29,12 +29,12 @@ end
 
   # POST white/create_component
   def create_component
-    component = params[:component_name].downcase
+    component = params[:component_name].downcase.gsub(/ /, '_')
     # If component name not empty, and file does not exist
     if component.present? && !File.exists?(file = Rails.root.join('lib', 'components', "#{component}_component.rb").to_s)
       # Create class of component
       File.open(file, 'w') do |f|
-        f.write(COMPONENT_CLASS_TEMPLATE.gsub(/COMPONENT_NAME/, component.capitalize))
+        f.write(COMPONENT_CLASS_TEMPLATE.gsub(/COMPONENT_NAME/, component.camelize))
       end
       # Create view of component
       FileUtils.mkdir view_dir = Rails.root.join('app', 'views', 'components', component).to_s
