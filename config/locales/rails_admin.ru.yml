@@ -94,6 +94,10 @@ ru:
       ago: "назад"
       make_aliases: "Сделать псевдонимы"
       made_aliases: "Псевдонимы сделаны"
+      create_component: "Создать компонент"
+      component_created: "Компонент создан"
+      name_component: "Название компонента"
+      create: "Создать"
       analytics: "Аналитика"
     flash:
       successful: "Успешно!"

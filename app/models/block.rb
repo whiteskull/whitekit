@@ -74,7 +74,7 @@ class Block < ActiveRecord::Base
     if class_exists?(class_name)
       component = eval(class_name).new
       component.main
-      {components: block.component.downcase, vars: component.vars, block: block}
+      {vars: component.vars, block: block}
     end
   end
 

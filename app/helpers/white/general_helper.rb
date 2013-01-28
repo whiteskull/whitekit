@@ -8,7 +8,7 @@ module White::GeneralHelper
                                                                   cache_block_position: cache_block_position}
   end
 
-  # render block position
+  # Render block position
   def render_block_position(block_position_alias, path_info)
     block_position = BlockPosition.includes(:blocks).get(block_position_alias).first
 
@@ -25,7 +25,7 @@ module White::GeneralHelper
     end
   end
 
-  # render block
+  # Render block
   def render_block(block_alias, path_info)
     block = Block.get block_alias, path_info
     whitecms_block(block)
@@ -35,12 +35,14 @@ module White::GeneralHelper
 
   def whitecms_block(block)
     if block.present?
-      # if block is component
-      if block.is_a?(Hash) && block[:components]
-        content = render partial: "components/#{block[:components]}/index", locals: {vars: block[:vars], block: block}
+      # If block is component
+      if block.is_a?(Hash) && block[:block].component.present?
+        content = render(partial: "components/#{block[:block].component}/index", locals: {vars: block[:vars], block: block[:block]})
         block = block[:block]
+      # If block content is present
       elsif block.content.present?
-          content = block.content.html_safe
+        content = block.content.html_safe
+      # If empty block
       else
         content = user_signed_in? && current_user.admin? && cookies['whitecms-edit'] == 'on' ? "[#{block.alias}]" : ''
       end

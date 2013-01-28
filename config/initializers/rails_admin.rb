@@ -205,7 +205,7 @@ RailsAdmin.config do |config|
         active false
         field :component, :enum do
           enum do
-            component = Dir[Rails.root.join('lib', 'components', '*.rb').to_s].map do |file|
+            component = Dir[Rails.root.join('lib', 'components', '*_component.rb').to_s].map do |file|
               file.split('_component').first.split('/').last
             end
             component.delete('base')

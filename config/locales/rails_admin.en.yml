@@ -20,4 +20,8 @@ en:
       navigation_users: 'Users'
       make_aliases: "Make aliases"
       made_aliases: "Aliases are made"
+      create_component: "Create component"
+      component_created: "Component created"
+      create: "Create"
+      name_component: "Component name"
       analytics: "Analytics"

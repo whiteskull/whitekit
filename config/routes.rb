@@ -1,7 +1,10 @@
 Whitecms::Application.routes.draw do
 
-  post 'white/make_aliases' => 'white::general#make_aliases', as: 'white_make_aliases'
-  post 'white/clear_caches' => 'white::general#clear_caches', as: 'white_clear_caches'
+  controller 'white::general' do
+    post 'white/make_aliases' => :make_aliases, as: 'white_make_aliases'
+    post 'white/clear_caches' => :clear_caches, as: 'white_clear_caches'
+    post 'white/create_component' => :create_component, as: 'white_create_component'
+  end
 
   mount Ckeditor::Engine => '/ckeditor'
 

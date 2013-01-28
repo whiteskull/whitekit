@@ -17,3 +17,28 @@ a {
 		width: 380px;
 	}
 }
+
+#create-component a {
+	padding: 3px 10px;
+	margin-right: 20px;
+	color: #333;
+
+	&:hover {
+		background: #dfdfdf;
+	}
+	&.disabled:focus,
+	&.disabled:hover {
+		background: #e6e6e6;
+	}
+}
+
+#component_name {
+	width: 300px;
+}
+
+#create-component-modal .modal-body input {
+
+	&.error {
+		border-color: #d60000;
+	}
+}
