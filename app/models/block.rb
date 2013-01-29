@@ -30,30 +30,33 @@ class Block < ActiveRecord::Base
 
     if block.present?
 
-      pages = block.visibility.delete("^\u{0000}-\u{007F}").split("\r\n").unshift('')
+      pages = block.visibility.delete("^\u{0000}-\u{007F}").split("\r\n")
 
       search = ''
-      if pages.count > 1
-        search = pages.inject do |sum, str|
-          str.strip!
-          reg = if str.last == '*'
-                  "|^\/#{str[0..-2]}"
-                elsif str == '<front>'
-                  "|^\/$"
-                elsif str.present?
-                  "|^\/#{str}$"
-                end
-          sum += reg ? reg : ''
-        end
+      # If there are pages for visiblility
+      if pages.count > 0
+        search = pages.map do |url|
+          url.strip!
+          # If need all subpages
+          if url.last == '*'
+            "^\/#{url[0..-2]}"
+            # If need root page
+          elsif url == '<front>'
+            "^\/$"
+            # If need particular page
+          elsif url.present?
+            "^\/#{url}$"
+          end
+        end.join('|')
         search.gsub!(/\//, '\/') if search.present?
       end
 
       condition = if search.length == 0
                     true
                   elsif block.visibility_condition == 'except'
-                    path !~ /#{search[1..-1].presence}/
+                    path !~ /#{search.presence}/
                   else
-                    path =~ /#{search[1..-1].presence}/
+                    path =~ /#{search.presence}/
                   end
 
       # Get block content or component if it visible
@@ -73,9 +76,12 @@ class Block < ActiveRecord::Base
   def self.get_component(block)
     class_name = "#{block.component.camelize}Component"
     if class_exists?(class_name)
-      component_params = block.component_params.gsub(/ /, '').delete("^\u{0000}-\u{007F}").split(/\r\n|:/)
-      # TODO: make right hash params
-      component = eval(class_name).new(Hash[*component_params])
+      component_params = block.component_params.delete(' ').delete("^\u{0000}-\u{007F}").split(/\r\n/).map do |param|
+        param = param.split(':')
+        param[0] = param.first.to_sym
+        param
+      end
+      component = eval(class_name).new(Hash[component_params])
       component.main
       {vars: component.vars, block: block}
     end
