@@ -16,8 +16,8 @@ module White::GeneralHelper
       blocks = block_position.blocks.visible
       content_html = ''
       blocks.each do |block|
-        block_ = Block.get block, path_info
-        content_html << whitecms_block(block_) if block_.present?
+        block = Block.get block, path_info
+        content_html << whitecms_block(block) if block.present?
       end
       ActionController::Base.helpers.div_for block_position, :white do
         content_html.html_safe
@@ -37,7 +37,7 @@ module White::GeneralHelper
     if block.present?
       # If block is component
       if block.is_a?(Hash) && block[:block].component.present?
-        content = render(partial: "components/#{block[:block].component}/index", locals: {vars: block[:vars], block: block[:block]})
+        content = render(partial: "components/#{block[:block].component}/index", locals: block)
         block = block[:block]
       # If block content is present
       elsif block.content.present?

@@ -83,7 +83,13 @@ class Block < ActiveRecord::Base
       end
       component = eval(class_name).new(Hash[component_params])
       component.main
-      {vars: component.vars, block: block}
+      #{vars: component.vars, block: block}
+      vars = component.instance_values
+      vars[:block] = block
+      vars.keys.each do |key|
+        vars[(key.to_sym rescue key) || key] = vars.delete(key)
+      end
+      vars
     end
   end
 
