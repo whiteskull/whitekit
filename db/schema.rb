@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130128133454) do
+ActiveRecord::Schema.define(:version => 20130130101331) do
 
   create_table "block_positions", :force => true do |t|
     t.string   "name"
@@ -114,5 +114,20 @@ ActiveRecord::Schema.define(:version => 20130128133454) do
   end
 
   add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
+
+  create_table "white_news", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.boolean  "hidden",     :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  create_table "whitecms_news_white_news", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

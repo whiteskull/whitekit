@@ -4,6 +4,14 @@ I18n.default_locale = :en
 # RailsAdmin config file. Generated on January 21, 2013 10:20
 # See github.com/sferik/rails_admin for more informations
 
+def class_exists?(name)
+  true if Kernel.const_get(name)
+rescue NameError
+  false
+end
+
+GEM_COMPONENTS = %w(news)
+
 RailsAdmin.config do |config|
 
   ################  Global configuration  ################
@@ -206,10 +214,13 @@ RailsAdmin.config do |config|
         active false
         field :component, :enum do
           enum do
-            component = Dir[Rails.root.join('lib', 'components', '*_component.rb').to_s].map do |file|
+            component = Dir[Rails.root.join('app', 'components', '*_component.rb').to_s].map do |file|
               file.split('_component').first.split('/').last
             end
             component.delete('base')
+            GEM_COMPONENTS.each do |name|
+              component << name if class_exists?("#{name.camelize}Component")
+            end
             component
           end
         end

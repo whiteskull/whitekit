@@ -17,6 +17,9 @@ gem 'rails_admin_nestable', git: 'git://github.com/dalpo/rails_admin_nestable.gi
 
 gem 'russian', '~> 0.6.0'
 
+# Use whitecms news
+gem 'whitecms_news', '0.0.4'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

@@ -12,8 +12,15 @@ Whitecms::Application.routes.draw do
 
   devise_for :users
 
-  root :to => 'pages#index'
+  # Need for Whitecms News
+  resources :white_news, only: [:index], path: 'news'
 
+  # Place your routes here
+
+
+
+
+  root :to => 'pages#index'
   get '*alias' => 'pages#index', as: 'page'
 
   # The priority is based upon order of creation:
