@@ -57,7 +57,7 @@ $(document).ready ->
         prev.addClass('visible')
 
   # Hover on editable blocks
-  $('.white_block').hover ->
+  $('.white_block, .white_news').hover ->
     edit = WhitecmsControl.cookie('whitecms-edit')
     if edit == 'on'
       $(this).addClass('whitecms-hover')
@@ -66,8 +66,28 @@ $(document).ready ->
     if edit == 'on'
       $(this).removeClass('whitecms-hover')
 
+  # Hover on editable news in block
+  $('.white_block .white_news').hover ->
+    edit = WhitecmsControl.cookie('whitecms-edit')
+    if edit == 'on'
+      $(this).addClass('whitecms-sub-hover')
+  ,->
+    edit = WhitecmsControl.cookie('whitecms-edit')
+    if edit == 'on'
+      $(this).removeClass('whitecms-sub-hover')
+
+  # Click on editable news
+  $('.white_news').click (e)->
+    e.stopPropagation()
+    edit = WhitecmsControl.cookie('whitecms-edit')
+    if edit == 'on'
+      block = $(this).attr('id')
+      id = parseInt(block.split('_').slice(-1)[0])
+      document.location.href = "/admin/white_news/#{id}/edit"
+
   # Click on editable blocks
   $('.white_block').click ->
+    console.log($(this).class);
     edit = WhitecmsControl.cookie('whitecms-edit')
     if edit == 'on'
       block = $(this).attr('id')

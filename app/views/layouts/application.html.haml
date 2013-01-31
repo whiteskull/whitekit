@@ -18,6 +18,6 @@
           = render 'layouts/main_menu'
         #side-right.sidebar
           = block_position_view :right
-          = block_view :latest_news
+          = block_view :latest_news, cache: true
     #footer
       = block_view :whitecms

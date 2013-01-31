@@ -11,7 +11,7 @@ class Block < ActiveRecord::Base
 
   before_save :alias_processing
 
-  scope :visible, where(hidden: false)
+  scope :visible, -> { where(hidden: false) }
 
   private
 

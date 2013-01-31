@@ -14,10 +14,6 @@
   = stylesheet_link_tag 'white/styles', :media => "all"
   = javascript_include_tag 'white/controls'
 
--# Include stylesheets and javascripts for all components
-= stylesheet_link_tag 'components/application', :media => "all"
-= javascript_include_tag 'components/application'
-
 %meta{:content => @page.try(:keywords), :name => 'keywords'}/
 %meta{:content => @page.try(:description), :name => 'description'}/
 = csrf_meta_tags

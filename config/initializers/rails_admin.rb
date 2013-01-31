@@ -1,5 +1,5 @@
 require 'i18n'
-I18n.default_locale = :en
+I18n.default_locale = :ru
 
 # RailsAdmin config file. Generated on January 21, 2013 10:20
 # See github.com/sferik/rails_admin for more informations
@@ -10,7 +10,7 @@ rescue NameError
   false
 end
 
-GEM_COMPONENTS = %w(news)
+GEM_COMPONENTS = %W(news)
 
 RailsAdmin.config do |config|
 
@@ -67,9 +67,6 @@ RailsAdmin.config do |config|
     end
   end
 
-  config.audit_with :history, Page
-  config.audit_with :history, BlockPosition
-  config.audit_with :history, Block
   config.audit_with :history, User
 
   config.excluded_models = %w(Ckeditor::Asset Ckeditor::AttachmentFile Ckeditor::Picture)

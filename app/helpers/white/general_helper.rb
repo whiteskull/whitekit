@@ -37,7 +37,16 @@ module White::GeneralHelper
     if block.present?
       # If block is component
       if block.is_a?(Hash) && block[:block].component.present?
-        content = render(partial: "components/#{block[:block].component}/index", locals: block)
+
+        # Include js and css for component if it call first time
+        if BaseComponent.count["#{block[:block].component.camelize}Component"] > 1
+          content = render(partial: "components/#{block[:block].component}/index", locals: block)
+        else
+          content = javascript_include_tag("components/#{block[:block].component}/#{block[:block].component}")
+          content << stylesheet_link_tag("components/#{block[:block].component}/#{block[:block].component}")
+          content << render(partial: "components/#{block[:block].component}/index", locals: block)
+        end
+
         block = block[:block]
       # If block content is present
       elsif block.content.present?
@@ -46,7 +55,7 @@ module White::GeneralHelper
       else
         content = user_signed_in? && current_user.admin? && cookies['whitecms-edit'] == 'on' ? "[#{block.alias}]" : ''
       end
-      ActionController::Base.helpers.div_for block, :white do
+      ActionController::Base.helpers.div_for block, :white, class: block.alias do
         content
       end
     end

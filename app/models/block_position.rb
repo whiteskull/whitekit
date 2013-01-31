@@ -8,7 +8,7 @@ class BlockPosition < ActiveRecord::Base
 
   before_save :alias_processing
 
-  scope :visible, where(hidden: false)
+  scope :visible, -> { where(hidden: false) }
   scope :get, lambda { |position| where(alias: position).visible }
 
   private

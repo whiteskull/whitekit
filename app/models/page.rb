@@ -13,9 +13,9 @@ class Page < ActiveRecord::Base
   before_create :set_max_position
   before_destroy :main_page
 
-  scope :visible, where(hidden: false)
+  scope :visible, -> { where(hidden: false) }
   scope :get_by_alias, lambda { |name| name.present? ? where(alias: name).visible : visible  }
-  scope :sort_by_position, order('position ASC')
+  scope :sort_by_position, -> { order('position ASC') }
 
   private
 

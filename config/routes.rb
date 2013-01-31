@@ -13,7 +13,9 @@ Whitecms::Application.routes.draw do
   devise_for :users
 
   # Need for Whitecms News
-  resources :white_news, only: [:index], path: 'news'
+  resources :white_news, only: [:index, :show], path: 'news' do
+    get 'page/:page', action: :index, on: :collection
+  end
 
   # Place your routes here
 

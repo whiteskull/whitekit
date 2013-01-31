@@ -11,6 +11,11 @@ end
 
 ENV['RAILS_ADMIN_THEME'] = 'white'
 
+# default values for WhiteCMS
+WHITE = {
+    news_per_page: 7
+}
+
 module Whitecms
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -35,6 +40,7 @@ module Whitecms
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    config.i18n.default_locale = :ru
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
