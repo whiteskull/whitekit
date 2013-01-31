@@ -78,7 +78,7 @@ class Block < ActiveRecord::Base
     # If there is component
     if class_exists?(class_name)
       # Make hash of params if exists
-      if components_params.present?
+      if block.component_params.present?
         component_params = block.component_params.delete(' ').delete("^\u{0000}-\u{007F}").split(/\r\n/).map do |param|
           param = param.split(':')
           param[0] = param.first.to_sym
