@@ -13,7 +13,7 @@ Whitekit::Application.routes.draw do
   devise_for :users
 
   # Need for Whitekit News
-  #resources :white_news, only: [:index, :show], path: 'news' do
+  #resources :news, only: [:index, :show] do
   #  get 'page/:page', action: :index, on: :collection
   #end
 
