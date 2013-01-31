@@ -57,7 +57,7 @@ $(document).ready ->
         prev.addClass('visible')
 
   # Hover on editable blocks
-  $('.white_block, .white_news').hover ->
+  $('.white_block, .news').hover ->
     edit = WhitekitControl.cookie('whitekit-edit')
     if edit == 'on'
       $(this).addClass('whitekit-hover')
@@ -67,7 +67,7 @@ $(document).ready ->
       $(this).removeClass('whitekit-hover')
 
   # Hover on editable news in block
-  $('.white_block .white_news').hover ->
+  $('.white_block .news').hover ->
     edit = WhitekitControl.cookie('whitekit-edit')
     if edit == 'on'
       $(this).addClass('whitekit-sub-hover')
@@ -77,13 +77,13 @@ $(document).ready ->
       $(this).removeClass('whitekit-sub-hover')
 
   # Click on editable news
-  $('.white_news').click (e)->
+  $('.news').click (e)->
     e.stopPropagation()
     edit = WhitekitControl.cookie('whitekit-edit')
     if edit == 'on'
       block = $(this).attr('id')
       id = parseInt(block.split('_').slice(-1)[0])
-      document.location.href = "/admin/white_news/#{id}/edit"
+      document.location.href = "/admin/news/#{id}/edit"
 
   # Click on editable blocks
   $('.white_block').click ->

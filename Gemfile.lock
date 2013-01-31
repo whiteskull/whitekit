@@ -175,6 +175,7 @@ GEM
       multi_json (~> 1.0, >= 1.0.2)
     warden (1.2.1)
       rack (>= 1.0)
+    whitekit_news (1.1.0)
 
 PLATFORMS
   ruby
@@ -200,3 +201,4 @@ DEPENDENCIES
   simple_form
   sqlite3
   uglifier (>= 1.0.3)
+  whitekit_news (= 1.1.0)
