@@ -13,9 +13,9 @@ Whitekit::Application.routes.draw do
   devise_for :users
 
   # Need for Whitekit News
-  resources :news, only: [:index, :show] do
-    get 'page/:page', action: :index, on: :collection
-  end
+  #resources :news, only: [:index, :show] do
+  #  get 'page/:page', action: :index, on: :collection
+  #end
 
   # Place your routes here
 
