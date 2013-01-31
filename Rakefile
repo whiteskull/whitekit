@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Whitecms::Application.load_tasks
+Whitekit::Application.load_tasks

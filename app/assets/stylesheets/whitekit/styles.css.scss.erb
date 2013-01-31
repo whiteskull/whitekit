@@ -1,0 +1,48 @@
+#whitekit-tools {
+  z-index: 99999;
+	position: fixed;
+	top: 0;
+	right: 0;
+	padding: 10px 10px 10px 20px;
+	background: #999;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+
+	img {
+		opacity: 0.5;
+		filter: alpha(opacity=50);
+	}
+	#whitekit-caches {
+    float: left;
+
+    #whitekit-clear-caches-loader {
+      padding: 8px;
+    }
+  }
+	.whitekit-slide-panel {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 20px;
+		height: 68px;
+    cursor: pointer;
+
+    opacity: 0.3;
+    filter: alpha(opacity=30);
+
+    &.w-open {
+      background: #333 url(<%= asset_path('whitekit/right.png') %>) 2px 13px no-repeat;
+    }
+    &.w-close {
+      background: #333 url(<%= asset_path('whitekit/left.png') %>) 2px 13px no-repeat;
+    }
+	}
+}
+.whitekit-hover {
+  background: #ffdead;
+  cursor: pointer;
+}
+.whitekit-sub-hover {
+  background: #d1b68e;
+  cursor: pointer;
+}

@@ -1,5 +1,5 @@
 require 'i18n'
-I18n.default_locale = :ru
+I18n.default_locale = :en
 
 # RailsAdmin config file. Generated on January 21, 2013 10:20
 # See github.com/sferik/rails_admin for more informations
@@ -17,7 +17,7 @@ RailsAdmin.config do |config|
   ################  Global configuration  ################
 
   # Set the admin name here (optional second array element will appear in red). For example:
-  config.main_app_name = %w(WhiteCMS Admin)
+  config.main_app_name = %w(WhiteKit Admin)
   # or for a more dynamic name:
   # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
 

@@ -1,17 +1,17 @@
-# WhiteCMS
+# WhiteKit
 
 ## Starting
 
-First you need to download **WhiteCMS**
+First you need to download **WhiteKit**
 
 ```bash
-$ git@github.com:whiteskull/whitecms.git
+$ git@github.com:whiteskull/whitekit.git
 ```
 
 Then you need to install gems
 
 ```bash
-$ cd whitecms
+$ cd whitekit
 $ bundle install
 ```
 

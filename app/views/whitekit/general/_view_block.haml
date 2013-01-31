@@ -1,0 +1,5 @@
+- if cache_block
+  - cache "whitekit-block-#{block_alias}" do
+    = render_block block_alias, request.path_info
+- else
+  = render_block block_alias, request.path_info

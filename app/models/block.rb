@@ -30,7 +30,7 @@ class Block < ActiveRecord::Base
 
     if block.present?
 
-      pages = block.visibility.delete("^\u{0000}-\u{007F}").split("\r\n")
+      pages = block.visibility.present? ? block.visibility.delete("^\u{0000}-\u{007F}").split("\r\n") : []
 
       search = ''
       # If there are pages for visiblility
@@ -75,15 +75,23 @@ class Block < ActiveRecord::Base
   # Get component
   def self.get_component(block)
     class_name = "#{block.component.camelize}Component"
+    # If there is component
     if class_exists?(class_name)
-      component_params = block.component_params.delete(' ').delete("^\u{0000}-\u{007F}").split(/\r\n/).map do |param|
-        param = param.split(':')
-        param[0] = param.first.to_sym
-        param
+      # Make hash of params if exists
+      if components_params.present?
+        component_params = block.component_params.delete(' ').delete("^\u{0000}-\u{007F}").split(/\r\n/).map do |param|
+          param = param.split(':')
+          param[0] = param.first.to_sym
+          param
+        end
+        params = Hash[component_params]
+      else
+        params = Hash.new
       end
-      component = eval(class_name).new(Hash[component_params])
+      # Create component with params
+      component = eval(class_name).new(params)
       component.main
-      #{vars: component.vars, block: block}
+      # All instance values of components pass to view
       vars = component.instance_values
       vars[:block] = block
       vars.keys.each do |key|

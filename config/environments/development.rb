@@ -1,4 +1,4 @@
-Whitecms::Application.configure do
+Whitekit::Application.configure do
 
   BetterErrors.editor = 'rubymine://open?url=file://%{file}&line=%{line}'
 

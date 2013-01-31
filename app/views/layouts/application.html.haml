@@ -3,7 +3,7 @@
   %head
     = render 'layouts/head'
   %body{id: controller_name}
-    = render 'white/tools' # need for admin
+    = render 'whitekit/tools' # need for admin
     #wrapper
       #header
         = render 'devise/menu/auth_items'
@@ -12,12 +12,10 @@
           #content
             = breadcrumbs @page if @page.present?
             = render 'layouts/messages'
-            = block_view :news
             = yield
         #side-left.sidebar
           = render 'layouts/main_menu'
         #side-right.sidebar
           = block_position_view :right
-          = block_view :latest_news, cache: true
     #footer
-      = block_view :whitecms
+      = block_view :copyright

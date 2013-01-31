@@ -1,0 +1,6 @@
+<% if @error %>
+  $('#create-component-modal .modal-body input').addClass('error');
+<% else %>
+  $('#create-component-modal').modal('hide');
+  $('#create-component a').text('<%= t('admin.misc.component_created') %>').addClass('disabled');
+<% end %>

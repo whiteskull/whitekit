@@ -1,0 +1,15 @@
+- if user_signed_in? && current_user.admin?
+  #whitekit-tools{style: "#{if cookies['whitekit-tools'] == 'closed' then 'right: -214px;' end}"}
+    .whitekit-slide-panel.w-open{style: "#{if cookies['whitekit-tools'] == 'closed' then 'display: none;' end}",
+                                 class: "#{if cookies['whitekit-tools'].blank? then 'visible' end}"}
+    .whitekit-slide-panel.w-close{style: "#{if cookies['whitekit-tools'].blank? then 'display: none;' end}",
+                                  class: "#{if cookies['whitekit-tools'] == 'closed' then 'visible' end}"}
+
+    #whitekit-caches
+      = link_to image_tag('whitekit/cache.png'), whitekit_clear_caches_path, id: 'whitekit-clear-caches', remote: true, method: :post
+      = image_tag 'whitekit/loader.gif', id: 'whitekit-clear-caches-loader', style: 'display: none;'
+      = image_tag 'whitekit/cache_ok.png', id: 'whitekit-clear-caches-cleared', style: 'display: none;'
+    = link_to image_tag('whitekit/tree.png'), '/admin/page/nestable'
+    = link_to image_tag('whitekit/users.png'), '/admin/user'
+    = link_to image_tag('whitekit/dashboard.png'), rails_admin_path
+    = link_to image_tag("whitekit/#{if cookies['whitekit-edit'] == 'on' then 'on.png' else 'off.png' end}"), '#', id: 'whitekit-edit'

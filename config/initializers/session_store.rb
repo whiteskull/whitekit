@@ -1,8 +1,8 @@
 # Be sure to restart your server when you modify this file.
 
-Whitecms::Application.config.session_store :cookie_store, key: '_whitecms_session'
+Whitekit::Application.config.session_store :cookie_store, key: '_whitekit_session'
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information
 # (create the session table with "rails generate session_migration")
-# Whitecms::Application.config.session_store :active_record_store
+# Whitekit::Application.config.session_store :active_record_store

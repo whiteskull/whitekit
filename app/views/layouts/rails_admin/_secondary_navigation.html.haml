@@ -3,7 +3,7 @@
     %li#create-component
       = link_to t('admin.misc.create_component'), '#create-component-modal', class: 'btn', data: {toggle: 'modal'}
     %li#make-aliases
-      = button_to t('admin.misc.make_aliases'), main_app.white_make_aliases_path, remote: true, class: 'btn', form: {style: 'margin-bottom: 0;'}
+      = button_to t('admin.misc.make_aliases'), main_app.whitekit_make_aliases_path, remote: true, class: 'btn', form: {style: 'margin-bottom: 0;'}
     %li= link_to t('admin.misc.analytics'), 'http://google.com/analytics', target: '_blank'
     %li= link_to wording_for(:menu, action), { :action => action.action_name, :controller => 'rails_admin/main' }, :class => 'pjax'
   - if main_app_root_path = (main_app.root_path rescue false)
@@ -22,7 +22,7 @@
     %button.close{'aria-hidden' => 'true', 'data-dismiss' => 'modal', :type => 'button'} ×
     %h3= t('admin.misc.create_component')
   .modal-body
-    = form_tag main_app.white_create_component_path, class: 'form-horizontal', remote: true do
+    = form_tag main_app.whitekit_create_component_path, class: 'form-horizontal', remote: true do
       .control-group
         %label.control-label{:for => "block_position_name"}= t('admin.misc.name_component')
         .controls

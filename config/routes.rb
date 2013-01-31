@@ -1,9 +1,9 @@
-Whitecms::Application.routes.draw do
+Whitekit::Application.routes.draw do
 
-  controller 'white::general' do
-    post 'white/make_aliases' => :make_aliases, as: 'white_make_aliases'
-    post 'white/clear_caches' => :clear_caches, as: 'white_clear_caches'
-    post 'white/create_component' => :create_component, as: 'white_create_component'
+  controller 'whitekit::general' do
+    post 'whitekit/make_aliases' => :make_aliases, as: 'whitekit_make_aliases'
+    post 'whitekit/clear_caches' => :clear_caches, as: 'whitekit_clear_caches'
+    post 'whitekit/create_component' => :create_component, as: 'whitekit_create_component'
   end
 
   mount Ckeditor::Engine => '/ckeditor'
@@ -12,10 +12,10 @@ Whitecms::Application.routes.draw do
 
   devise_for :users
 
-  # Need for Whitecms News
-  resources :white_news, only: [:index, :show], path: 'news' do
-    get 'page/:page', action: :index, on: :collection
-  end
+  # Need for Whitekit News
+  #resources :white_news, only: [:index, :show], path: 'news' do
+  #  get 'page/:page', action: :index, on: :collection
+  #end
 
   # Place your routes here
 
