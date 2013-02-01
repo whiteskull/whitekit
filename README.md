@@ -84,6 +84,7 @@ The default directory structure application:
 [rails_admin]: https://github.com/sferik/rails_admin
 
 You can enter in administrator back-end
+
 **xxx.xx/admin**
 
 email: admin@mail.ru
