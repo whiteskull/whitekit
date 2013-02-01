@@ -14,3 +14,13 @@ $(document).ready ->
   $('#create-component-modal .modal-body input').keydown ->
     $(this).removeClass('error')
 
+  $('#block_component[name="block[component]"]').change ->
+    component = $(this).val()
+
+    $.ajax
+    	url: '/whitekit/get_component_params'
+    	type: 'post'
+    	data: {component: component}
+    	success: (params)->
+        $('#block_component_params_field .help-block').html("<pre>#{params}</pre>")
+

@@ -4,6 +4,7 @@ Whitekit::Application.routes.draw do
     post 'whitekit/make_aliases' => :make_aliases, as: 'whitekit_make_aliases'
     post 'whitekit/clear_caches' => :clear_caches, as: 'whitekit_clear_caches'
     post 'whitekit/create_component' => :create_component, as: 'whitekit_create_component'
+    post 'whitekit/get_component_params' => :get_component_params, as: 'whitekit_get_component_params'
   end
 
   mount Ckeditor::Engine => '/ckeditor'

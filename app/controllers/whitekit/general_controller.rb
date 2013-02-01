@@ -1,6 +1,7 @@
 class Whitekit::GeneralController < ApplicationController
 
   skip_before_filter :get_main_menu
+  before_filter :check_admin
 
   COMPONENT_CLASS_TEMPLATE = <<-TEMPLATE
 class COMPONENT_NAMEComponent < BaseComponent
@@ -8,6 +9,13 @@ class COMPONENT_NAMEComponent < BaseComponent
   end
 end
   TEMPLATE
+
+  # Check if user is admin
+  def check_admin
+    unless user_signed_in? && current_user.admin?
+      abort()
+    end
+  end
 
   # POST whitekit/make_aliases
   def make_aliases
@@ -63,5 +71,19 @@ end
     respond_to do |format|
       format.js
     end
+  end
+
+  # POST whitekit/get_component_params
+  def get_component_params
+
+    class_component = "#{params[:component].camelize}Component"
+
+    if params[:component].present? && defined?(eval(class_component)::PARAMS)
+      component_params = eval(class_component)::PARAMS
+      render text: component_params
+    else
+      render text: ''
+    end
+
   end
 end
