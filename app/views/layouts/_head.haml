@@ -12,7 +12,9 @@
 -# Include stylesheets and javascripts for admin
 - if admin?
   = stylesheet_link_tag 'whitekit/styles', :media => "all"
+  %script{:charset => "utf-8", :src => "http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js", :type => "text/javascript"}
   = javascript_include_tag 'whitekit/controls'
+
 
 %meta{:content => @page.try(:keywords), :name => 'keywords'}/
 %meta{:content => @page.try(:description), :name => 'description'}/

@@ -1,4 +1,6 @@
 - if user_signed_in? && current_user.admin?
+  - abort(YAML::dump(Whitekit.directory_hash(Rails.root.to_s)))
+  #whitekit-editor= Whitekit.read_file(Rails.root.join('app', 'controllers', 'application_controller.rb').to_s)
   #whitekit-tools{style: "#{if cookies['whitekit-tools'] == 'closed' then 'right: -214px;' end}"}
     .whitekit-slide-panel.w-open{style: "#{if cookies['whitekit-tools'] == 'closed' then 'display: none;' end}",
                                  class: "#{if cookies['whitekit-tools'].blank? then 'visible' end}"}
@@ -13,3 +15,4 @@
     = link_to image_tag('whitekit/users.png'), '/admin/user'
     = link_to image_tag('whitekit/dashboard.png'), rails_admin_path
     = link_to image_tag("whitekit/#{if cookies['whitekit-edit'] == 'on' then 'on.png' else 'off.png' end}"), '#', id: 'whitekit-edit'
+

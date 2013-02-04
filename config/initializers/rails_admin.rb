@@ -4,12 +4,6 @@ I18n.default_locale = :en
 # RailsAdmin config file. Generated on January 21, 2013 10:20
 # See github.com/sferik/rails_admin for more informations
 
-def class_exists?(name)
-  true if Kernel.const_get(name)
-rescue NameError
-  false
-end
-
 GEM_COMPONENTS = %W(news)
 
 RailsAdmin.config do |config|
@@ -216,7 +210,7 @@ RailsAdmin.config do |config|
             end
             component.delete('base')
             GEM_COMPONENTS.each do |name|
-              component << name if class_exists?("#{name.camelize}Component")
+              component << name if Whitekit.class_exists?("#{name.camelize}Component")
             end
             component
           end

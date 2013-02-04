@@ -111,6 +111,11 @@ $(document).ready ->
     $(this).remove()
     $('#whitekit-tools #whitekit-clear-caches-loader').show()
 
+  # Ace editor
+  ace_editor = ace.edit('whitekit-editor')
+  ace_editor.setTheme('ace/theme/monokai')
+  ace_editor.getSession().setMode("ace/mode/ruby")
+  ace_editor.getSession().setTabSize(2)
 
 
 

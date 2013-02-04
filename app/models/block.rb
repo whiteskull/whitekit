@@ -76,7 +76,7 @@ class Block < ActiveRecord::Base
   def self.get_component(block)
     class_name = "#{block.component.camelize}Component"
     # If there is component
-    if class_exists?(class_name)
+    if Whitekit.class_exists?(class_name)
       # Make hash of params if exists
       if block.component_params.present?
         component_params = block.component_params.delete(' ').delete("^\u{0000}-\u{007F}").split(/\r\n/).map do |param|
@@ -99,13 +99,5 @@ class Block < ActiveRecord::Base
       end
       vars
     end
-  end
-
-  # Check if class of component exists
-  def self.class_exists?(class_name)
-    klass = Module.const_get(class_name)
-    return klass.is_a?(Class)
-  rescue NameError
-    return false
   end
 end
