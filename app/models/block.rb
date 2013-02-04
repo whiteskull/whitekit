@@ -4,7 +4,7 @@ class Block < ActiveRecord::Base
 
   attr_accessible :block_position_id, as: :admin
   attr_accessible :alias, :content, :hidden, :name, :visibility, :visibility_condition,
-                  :component, :component_params, as: :admin
+                  :component, :component_params, :component_theme, as: :admin
 
   validates :alias, presence: true, uniqueness: true
   validates :name, :visibility_condition, presence: true

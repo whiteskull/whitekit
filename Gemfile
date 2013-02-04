@@ -13,7 +13,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'simple_form'
 gem 'ancestry'
-gem 'rails_admin_nestable', git: 'git://github.com/dalpo/rails_admin_nestable.git'
+gem 'rails_admin_nestable'
 
 gem 'russian', '~> 0.6.0'
 

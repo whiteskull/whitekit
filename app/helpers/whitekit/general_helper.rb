@@ -41,13 +41,15 @@ module Whitekit::GeneralHelper
       # If block is component
       if block.is_a?(Hash) && block[:block].component.present?
 
+        theme = block[:block].component_theme.presence || 'default'
+
         # Include js and css for component if it call first time
         if BaseComponent.count["#{block[:block].component.camelize}Component"] > 1
-          content = render(partial: "components/#{block[:block].component}/index", locals: block)
+          content = render(partial: "components/#{block[:block].component}/#{theme}/index", locals: block)
         else
-          content = javascript_include_tag("components/#{block[:block].component}/#{block[:block].component}")
-          content << stylesheet_link_tag("components/#{block[:block].component}/#{block[:block].component}")
-          content << render(partial: "components/#{block[:block].component}/index", locals: block)
+          content = javascript_include_tag("components/#{block[:block].component}/#{theme}/#{block[:block].component}")
+          content << stylesheet_link_tag("components/#{block[:block].component}/#{theme}/#{block[:block].component}")
+          content << render(partial: "components/#{block[:block].component}/#{theme}/index", locals: block)
         end
 
         block = block[:block]

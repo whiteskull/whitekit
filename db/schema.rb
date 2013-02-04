@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130131185915) do
+ActiveRecord::Schema.define(:version => 20130204104815) do
 
   create_table "block_positions", :force => true do |t|
     t.string   "name"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20130131185915) do
     t.string   "visibility_condition", :default => "only"
     t.text     "component"
     t.text     "component_params"
+    t.string   "component_theme"
   end
 
   create_table "ckeditor_assets", :force => true do |t|

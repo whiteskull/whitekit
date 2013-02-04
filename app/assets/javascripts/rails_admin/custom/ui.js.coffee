@@ -1,3 +1,11 @@
+load_component_params = (component)->
+  $.ajax
+    url: '/whitekit/get_component_params'
+    type: 'post'
+    data: {component: component}
+    success: (params)->
+      $('#block_component_params_field .help-block').html("<pre>#{params}</pre>")
+
 $(document).ready ->
 
   create_component = $('#create-component-modal').remove()
@@ -14,13 +22,14 @@ $(document).ready ->
   $('#create-component-modal .modal-body input').keydown ->
     $(this).removeClass('error')
 
-  $('#block_component[name="block[component]"]').change ->
+  # Change component - load params help for component
+  $(document).on 'change', '#block_component[name="block[component]"]', ->
     component = $(this).val()
+    load_component_params(component)
 
-    $.ajax
-    	url: '/whitekit/get_component_params'
-    	type: 'post'
-    	data: {component: component}
-    	success: (params)->
-        $('#block_component_params_field .help-block').html("<pre>#{params}</pre>")
-
+  # Click on components group - load params help for component
+  $(document).on 'click.component_params', 'fieldset', ->
+    if $('#block_component_params_field', this).size() > 0
+      component = $('#block_component[name="block[component]"]').val()
+      load_component_params(component)
+    $(document).off 'click.component_params'

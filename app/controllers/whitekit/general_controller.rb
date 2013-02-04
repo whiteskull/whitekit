@@ -5,6 +5,9 @@ class Whitekit::GeneralController < ApplicationController
 
   COMPONENT_CLASS_TEMPLATE = <<-TEMPLATE
 class COMPONENT_NAMEComponent < BaseComponent
+  PARAMS_DESCRIPTION = <<-DESCRIPTION
+  DESCRIPTION
+
   def main
   end
 end
@@ -47,22 +50,22 @@ end
         f.write(COMPONENT_CLASS_TEMPLATE.gsub(/COMPONENT_NAME/, component.camelize))
       end
       # Create view of component
-      FileUtils.mkdir_p view_dir = Rails.root.join('app', 'views', 'components', component).to_s
+      FileUtils.mkdir_p view_dir = Rails.root.join('app', 'views', 'components', component, 'default').to_s
       File.open("#{view_dir}/_index.haml", 'w') do |f|
         f.write('= "[#{block.alias}]"')
       end
       # Create js of component
-      FileUtils.mkdir_p js_dir = Rails.root.join('app', 'assets', 'javascripts', 'components', component).to_s
+      FileUtils.mkdir_p js_dir = Rails.root.join('app', 'assets', 'javascripts', 'components', component, 'default').to_s
       File.open("#{js_dir}/#{component}.js.coffee", 'w') do |f|
         f.write('$(document).ready ->')
       end
       # Create style of component
-      FileUtils.mkdir_p css_dir = Rails.root.join('app', 'assets', 'stylesheets', 'components', component).to_s
+      FileUtils.mkdir_p css_dir = Rails.root.join('app', 'assets', 'stylesheets', 'components', component, 'default').to_s
       File.open("#{css_dir}/#{component}.css.scss", 'w') do |f|
         f.write(".#{component}_block {\r\n}")
       end
       # Create directory in images for component
-      FileUtils.mkdir_p Rails.root.join('app', 'assets', 'images', 'components', component).to_s
+      FileUtils.mkdir_p Rails.root.join('app', 'assets', 'images', 'components', component, 'default').to_s
       @error = false
     else
       @error = true
@@ -78,8 +81,8 @@ end
 
     class_component = "#{params[:component].camelize}Component"
 
-    if params[:component].present? && defined?(eval(class_component)::PARAMS)
-      component_params = eval(class_component)::PARAMS
+    if params[:component].present? && defined?(eval(class_component)::PARAMS_DESCRIPTION)
+      component_params = eval(class_component)::PARAMS_DESCRIPTION
       render text: component_params
     else
       render text: ''

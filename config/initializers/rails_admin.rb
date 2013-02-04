@@ -222,6 +222,7 @@ RailsAdmin.config do |config|
           end
         end
         field :component_params
+        field :component_theme
       end
       group :visibility do
         label I18n.t('admin.group_fields.visibility')
