@@ -117,7 +117,27 @@ $(document).ready ->
   ace_editor.getSession().setMode("ace/mode/ruby")
   ace_editor.getSession().setTabSize(2)
 
+  # Click on folder in tree - hide or view children directory
+  $('#whitekit-site .whitekit-folder').click ->
+    if $(this).next().hasClass('whitekit-directory')
+      if $(this).next().hasClass('whitekit-directory-opened')
+        $(this).next().removeClass('whitekit-directory-opened').hide()
+        $('.whitekit-directory', $(this).next()).removeClass('whitekit-directory-opened').hide()
+      else
+        $(this).next().addClass('whitekit-directory-opened').show()
 
+  $('#whitekit-site .whitekit-file').click ->
+    path = $(this).data('path')
+    $.ajax
+      url: '/whitekit/get_file_content'
+      type: 'post'
+      dataType: 'json',
+      data: {path: path}
+      success: (data)->
+        ace_editor.getSession().setMode("ace/mode/#{data.type}");
+        ace_editor.setValue(data.content)
+        ace_editor.gotoLine(1)
+        editor.selection.getCursor()
 
 
 

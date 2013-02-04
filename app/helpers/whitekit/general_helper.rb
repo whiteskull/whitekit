@@ -34,6 +34,30 @@ module Whitekit::GeneralHelper
     whitekit_block(block)
   end
 
+  # Direcory view for admin
+  def whitekit_directory_view(path)
+    data = Whitekit.directory(path)
+    content_tag :ul, class: 'whitekit-directory whitekit-directory-opened' do
+      content = ''
+      data[:dir].each do |item|
+        content << content_tag(:li) do
+          sub = content_tag :span, class: 'whitekit-folder', data: {path: "#{path}/#{item}"} do
+            item
+          end
+          sub + whitekit_directory_view("#{path}/#{item}").html_safe
+        end
+      end
+      data[:file].each do |item|
+        content << content_tag(:li) do
+          content_tag :span, class: 'whitekit-file', data: {path: "#{path}/#{item}"} do
+            item
+          end
+        end
+      end
+      content.html_safe
+    end.html_safe
+  end
+
   private
 
   def whitekit_block(block)

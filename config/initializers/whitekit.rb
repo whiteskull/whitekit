@@ -11,18 +11,22 @@ module Whitekit
     false
   end
 
-  def self.directory_hash(path, name=nil)
-    data = {data: (name || path)}
-    data[:children] = children = []
-    Dir.foreach(path) do |entry|
-      next if (entry == '..' || entry == '.')
-      full_path = File.join(path, entry)
-      if File.directory?(full_path)
-        children << directory_hash(full_path, entry)
-      else
-        children << entry
+  def self.directory(path)
+    data = {
+        dir: [],
+        file: []
+    }
+    if File.directory? path
+      Dir.entries(path).sort.each do |item|
+        next if item == '.' || item == '..' || "#{path}/#{item}" == "#{Rails.root}/tmp"
+        if File.directory? "#{path}/#{item}"
+          data[:dir] << item unless item[0] == '.'
+        else
+          data[:file] << item
+        end
       end
     end
     data
   end
+
 end

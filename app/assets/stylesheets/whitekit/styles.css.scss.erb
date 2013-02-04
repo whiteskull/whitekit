@@ -46,12 +46,66 @@
   background: #d1b68e;
   cursor: pointer;
 }
-#whitekit-editor {
+#whitekit-site {
   position: absolute;
-  z-index: 99999;
   top: 0;
-  right: 0;
-  bottom: 0;
   left: 0;
-  font-size: 14px;
+  background: #bbb;
+  z-index: 998;
+  height: 100%;
+  font-size: 12px;
+
+  ul:first-child {
+    padding: 0;
+    margin: 0;
+    padding-left: 10px;
+    width: 250px;
+    overflow: auto;
+    height: 100%;
+  }
+
+  .whitekit-directory {
+
+    li {
+      list-style: none;
+    }
+    ul {
+      margin-left: 7px;
+      padding-left: 8px;
+      border-left: 1px solid #999;
+    }
+
+    .whitekit-folder {
+      background: url(<%= asset_path('whitekit/folder.png') %>) 0 1px no-repeat;
+
+      color: #333;
+      padding-left: 20px;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+    .whitekit-file {
+      background: url(<%= asset_path('whitekit/file_text.png') %>) 0 1px no-repeat;
+
+      color: #222;
+      padding-left: 20px;
+      margin-left: 3px;
+      cursor: pointer;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+  #whitekit-editor {
+    position: absolute;
+    top: 0;
+    left: 260px;
+    height: 100%;
+    width: 950px;
+    font-size: 14px;
+  }
 }

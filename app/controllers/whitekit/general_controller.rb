@@ -78,7 +78,6 @@ end
 
   # POST whitekit/get_component_params
   def get_component_params
-
     class_component = "#{params[:component].camelize}Component"
 
     if params[:component].present? && defined?(eval(class_component)::PARAMS_DESCRIPTION)
@@ -87,6 +86,32 @@ end
     else
       render text: ''
     end
+  end
 
+  # POST whitekit/get_file_content
+  def get_file_content
+    data = {}
+    data[:content] = Whitekit.read_file(params[:path])
+
+    data[:type] = case params[:path]
+                    when /\.rb/
+                      'ruby'
+                    when /\.coffee/
+                      'coffee'
+                    when /\.js/
+                      'javascript'
+                    when /\.scss/
+                      'scss'
+                    when /\.css/
+                      'css'
+                    else
+                      'text'
+                  end
+
+    respond_to do |format|
+      format.js {
+        render json: data
+      }
+    end
   end
 end
