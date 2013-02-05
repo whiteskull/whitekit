@@ -2,7 +2,9 @@
   #whitekit-site{style: "#{if cookies['whitekit-tree'] == 'opened' then 'left: 0;' end}"}
     = whitekit_directory_view(Rails.root) if cookies['whitekit-tree'] == 'opened'
     #whitekit-editor
-      -##whitekit-editor-panel
+      #whitekit-editor-panel
+        #whitekit-editor-tools
+        #whitekit-editor-path
       #whitekit-editor-code
     #whitekit-site-move{class: "#{if cookies['whitekit-tree'] == 'opened' then 'opened' end}"}
 

@@ -158,6 +158,7 @@ $(document).ready ->
         ace_editor.getSession().setMode("ace/mode/#{data.type}");
         ace_editor.setValue(data.content)
         ace_editor.gotoLine(1)
+        $('#whitekit-site #whitekit-editor-path').text(path)
 
   # Hover on the panel to right of editor (for open or close it)
   $('#whitekit-site-move').hover ->
