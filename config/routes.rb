@@ -6,6 +6,7 @@ Whitekit::Application.routes.draw do
     post 'whitekit/create_component' => :create_component, as: 'whitekit_create_component'
     post 'whitekit/get_component_params' => :get_component_params, as: 'whitekit_get_component_params'
     post 'whitekit/get_file_content' => :get_file_content, as: 'whitekit_get_file_content'
+    post 'whitekit/get_folder_content' => :get_folder_content, as: 'whitekit_get_folder_content'
   end
 
   mount Ckeditor::Engine => '/ckeditor'

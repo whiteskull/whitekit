@@ -37,14 +37,14 @@ module Whitekit::GeneralHelper
   # Direcory view for admin
   def whitekit_directory_view(path)
     data = Whitekit.directory(path)
-    content_tag :ul, class: 'whitekit-directory whitekit-directory-opened' do
+    content_tag :ul, class: 'whitekit-directory' do # if folder is open then need add class: 'whitekit-directory-opened'
       content = ''
       data[:dir].each do |item|
         content << content_tag(:li) do
           sub = content_tag :span, class: 'whitekit-folder', data: {path: "#{path}/#{item}"} do
             item
           end
-          sub + whitekit_directory_view("#{path}/#{item}").html_safe
+          #sub + whitekit_directory_view("#{path}/#{item}").html_safe
         end
       end
       data[:file].each do |item|
@@ -57,6 +57,7 @@ module Whitekit::GeneralHelper
       content.html_safe
     end.html_safe
   end
+
 
   private
 

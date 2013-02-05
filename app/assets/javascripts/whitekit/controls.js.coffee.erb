@@ -112,21 +112,42 @@ $(document).ready ->
     $('#whitekit-tools #whitekit-clear-caches-loader').show()
 
   # Ace editor
-  ace_editor = ace.edit('whitekit-editor')
+  ace_editor = ace.edit('whitekit-editor-code')
   ace_editor.setTheme('ace/theme/monokai')
   ace_editor.getSession().setMode("ace/mode/ruby")
   ace_editor.getSession().setTabSize(2)
+  ace_editor.commands.addCommand
+    name: 'save'
+    bindKey: {win: 'Ctrl-S',  mac: 'Command-S'}
+    exec: (editor)->
+      alert ace_editor.getValue()
+    readOnly: false
 
   # Click on folder in tree - hide or view children directory
-  $('#whitekit-site .whitekit-folder').click ->
+  $(document).on 'click', '#whitekit-site .whitekit-folder', ->
     if $(this).next().hasClass('whitekit-directory')
+      # Hide subfolder
       if $(this).next().hasClass('whitekit-directory-opened')
         $(this).next().removeClass('whitekit-directory-opened').hide()
         $('.whitekit-directory', $(this).next()).removeClass('whitekit-directory-opened').hide()
+      # Show subfolder
       else
         $(this).next().addClass('whitekit-directory-opened').show()
+    else
+      # Load subfolder
+      unless $(this).hasClass('whitekit-folder-ajax')
+        block = $(this)
+        block.addClass('whitekit-folder-ajax')
+        $.ajax
+          url: 'whitekit/get_folder_content'
+          type: 'post'
+          data: {path: $(this).data('path')}
+          success: (data)->
+            block.after(data)
+            block.next().addClass('whitekit-directory-opened')
 
-  $('#whitekit-site .whitekit-file').click ->
+  # Click on file in tree - open file for editing
+  $(document).on 'click', '#whitekit-site .whitekit-file', ->
     path = $(this).data('path')
     $.ajax
       url: '/whitekit/get_file_content'
@@ -137,8 +158,31 @@ $(document).ready ->
         ace_editor.getSession().setMode("ace/mode/#{data.type}");
         ace_editor.setValue(data.content)
         ace_editor.gotoLine(1)
-        editor.selection.getCursor()
 
+  # Hover on the panel to right of editor (for open or close it)
+  $('#whitekit-site-move').hover ->
+    $(this).stop().fadeTo(400, 1)
+  ,->
+    $(this).stop().fadeTo(400, 0.2)
+
+  # Click on panel to right of editor (for open or close it)
+  $('#whitekit-site-move').click ->
+    if $(this).hasClass('opened')
+      WhitekitControl.cookie_delete('whitekit-tree')
+      $(this).removeClass('opened')
+      $('#whitekit-site').animate({left: '-1210px'}, 400)
+    else
+      # If tree does not exist
+      unless $('#whitekit-site .whitekit-directory').size() > 0
+        $.ajax
+          url: 'whitekit/get_folder_content'
+          type: 'post'
+          data: {path: '<%= Rails.root.to_s %>'}
+          success: (data)->
+            $('#whitekit-site').prepend(data)
+      WhitekitControl.cookie_set('whitekit-tree', 'opened')
+      $(this).addClass('opened')
+      $('#whitekit-site').animate({left: '0'}, 400)
 
 
 

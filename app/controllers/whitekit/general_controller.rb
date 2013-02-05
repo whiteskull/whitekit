@@ -114,4 +114,24 @@ end
       }
     end
   end
+
+  # POST whitekit/get_folder_content
+  def get_folder_content
+    @path = params[:path]
+
+    render layout: false
+  end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
