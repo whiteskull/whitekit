@@ -120,7 +120,12 @@ $(document).ready ->
     name: 'save'
     bindKey: {win: 'Ctrl-S',  mac: 'Command-S'}
     exec: (editor)->
-      alert ace_editor.getValue()
+      $.ajax
+        url: 'whitekit/save_file_content'
+        type: 'post'
+        data: {content: ace_editor.getValue(), path: $('#whitekit-site #whitekit-editor-path').text()}
+        success: (data)->
+          console.log('well')
     readOnly: false
 
   # Click on folder in tree - hide or view children directory

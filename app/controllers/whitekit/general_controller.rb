@@ -121,6 +121,14 @@ end
 
     render layout: false
   end
+
+  # POST whitekit/save_file_content
+  def save_file_content
+    File.open(params[:path].strip, 'w+') do |f|
+      f.write(params[:content])
+    end
+    render text: true
+  end
 end
 
 
