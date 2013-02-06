@@ -21,6 +21,25 @@ window.WhitekitControl =
 
 $(document).ready ->
 
+  ace_editor = ''
+
+  # Ace editor
+  whitekit_ace_editor= ()->
+    console.log('!!!');
+    ace_editor = ace.edit('whitekit-editor-code')
+    ace_editor.setTheme('ace/theme/monokai')
+    ace_editor.getSession().setMode("ace/mode/#{$('#whitekit-site #whitekit-editor-code').data('type')}")
+    ace_editor.getSession().setTabSize(2)
+    ace_editor.commands.addCommand
+      name: 'save'
+      bindKey: {win: 'Ctrl-S', mac: 'Command-S'}
+      exec: (editor)->
+        whitekit_save_file()
+      readOnly: false
+
+  # Call ace editor
+  whitekit_ace_editor()
+
   # Save file
   whitekit_save_file= ()->
     $.ajax
@@ -128,18 +147,6 @@ $(document).ready ->
     $(this).remove()
     $('#whitekit-tools #whitekit-clear-caches-loader').show()
 
-  # Ace editor
-  ace_editor = ace.edit('whitekit-editor-code')
-  ace_editor.setTheme('ace/theme/monokai')
-  ace_editor.getSession().setMode("ace/mode/#{$('#whitekit-site #whitekit-editor-code').data('type')}")
-  ace_editor.getSession().setTabSize(2)
-  ace_editor.commands.addCommand
-    name: 'save'
-    bindKey: {win: 'Ctrl-S',  mac: 'Command-S'}
-    exec: (editor)->
-      whitekit_save_file()
-    readOnly: false
-
   # Click on folder in tree - hide or view children directory
   $(document).on 'click', '#whitekit-site .whitekit-folder', ->
     path = $(this).data('path')
@@ -179,8 +186,10 @@ $(document).ready ->
       data: {path: path}
       success: (data)->
         $('#whitekit-site #whitekit-editor-tools').show()
+        $('#whitekit-site #whitekit-editor-code').remove()
+        $("<div id=\"whitekit-editor-code\">#{data.content}</div>").insertBefore('#whitekit-site #whitekit-editor-diskette')
+        whitekit_ace_editor()
         ace_editor.getSession().setMode("ace/mode/#{data.type}");
-        ace_editor.setValue(data.content)
         ace_editor.gotoLine(1)
         $('#whitekit-site #whitekit-editor-path').text(path)
 
