@@ -1,6 +1,6 @@
 - if user_signed_in? && current_user.admin?
   #whitekit-site{style: "#{if cookies['whitekit-tree'] == 'opened' then 'left: 0;' end}"}
-    = whitekit_directory_view(Rails.root) if cookies['whitekit-tree'] == 'opened'
+    = whitekit_directory_view(Rails.root.join('app').to_s) if cookies['whitekit-tree'] == 'opened'
     #whitekit-site-move{class: "#{if cookies['whitekit-tree'] == 'opened' then 'opened' end}"}
     #whitekit-editor
       #whitekit-editor-panel

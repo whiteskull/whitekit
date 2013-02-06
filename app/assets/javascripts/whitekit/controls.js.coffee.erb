@@ -185,13 +185,13 @@ $(document).ready ->
         $('#whitekit-site #whitekit-editor-path').text(path)
 
   # Hover on the panel to right of editor (for open or close it)
-  $('#whitekit-site-move').hover ->
+  $('#whitekit-site #whitekit-site-move').hover ->
     $(this).stop().fadeTo(400, 1)
   ,->
     $(this).stop().fadeTo(400, 0.2)
 
   # Click on panel to right of editor (for open or close it)
-  $('#whitekit-site-move').click ->
+  $('#whitekit-site #whitekit-site-move').click ->
     if $(this).hasClass('opened')
       WhitekitControl.cookie_delete('whitekit-tree')
       $(this).removeClass('opened')
@@ -202,7 +202,7 @@ $(document).ready ->
         $.ajax
           url: 'whitekit/get_folder_content'
           type: 'post'
-          data: {path: '<%= Rails.root.to_s %>'}
+          data: {path: '<%= Rails.root.join('app').to_s %>'}
           success: (data)->
             $('#whitekit-site').prepend(data)
       WhitekitControl.cookie_set('whitekit-tree', 'opened')
@@ -224,6 +224,9 @@ $(document).ready ->
     $('#whitekit-site #whitekit-editor-tools').hide()
     WhitekitControl.cookie_delete('whitekit_file_type')
     WhitekitControl.cookie_delete('whitekit_file_path')
+    WhitekitControl.cookie_delete('whitekit-tree')
+    $('#whitekit-site #whitekit-site-move').removeClass('opened')
+    $('#whitekit-site').animate({left: '-1210px'}, 400)
 
 
 
