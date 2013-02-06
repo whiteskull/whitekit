@@ -24,7 +24,7 @@ $(document).ready ->
   # Save file
   whitekit_save_file= ()->
     $.ajax
-      url: 'whitekit/save_file_content'
+      url: '/whitekit/save_file_content'
       type: 'post'
       data: {content: ace_editor.getValue(), path: $('#whitekit-site #whitekit-editor-path').text()}
       beforeSend: ->
@@ -161,7 +161,7 @@ $(document).ready ->
         block = $(this)
         block.addClass('whitekit-folder-ajax')
         $.ajax
-          url: 'whitekit/get_folder_content'
+          url: '/whitekit/get_folder_content'
           type: 'post'
           data: {path: path}
           success: (data)->
@@ -200,7 +200,7 @@ $(document).ready ->
       # If tree does not exist
       unless $('#whitekit-site .whitekit-directory').size() > 0
         $.ajax
-          url: 'whitekit/get_folder_content'
+          url: '/whitekit/get_folder_content'
           type: 'post'
           data: {path: '<%= Rails.root.join('app').to_s %>'}
           success: (data)->
