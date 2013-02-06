@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   def get_main_menu
     @main_menu = Rails.cache.fetch('main-menu', :expires_in => 24.hours) { Page.arrange(order: :position) }
   end
-
+  
   def init_components
     BaseComponent.request = request
   end

@@ -108,6 +108,8 @@ end
                       'text'
                   end
 
+    session[:whitekit_file_type] = data[:type]
+    session[:whitekit_file_path] = params[:path]
     respond_to do |format|
       format.js {
         render json: data
@@ -117,9 +119,23 @@ end
 
   # POST whitekit/get_folder_content
   def get_folder_content
+    session[:whitekit_path] = "#{session[:whitekit_path].presence}[#{params[:path]}]"
     @path = params[:path]
 
     render layout: false
+  end
+
+  # POST whitekit/session_path
+  def session_path
+    case params[:mode]
+      # Add path to session
+      when 'add'
+        session[:whitekit_path] = "#{session[:whitekit_path].presence}[#{params[:path]}]"
+      # Remove path from session
+      when 'remove'
+        session[:whitekit_path].gsub!(/\[#{Regexp.escape("#{params[:path]}")}.*?\]/, '') if session[:whitekit_path].present?
+    end
+    render text: true
   end
 
   # POST whitekit/save_file_content

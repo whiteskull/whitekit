@@ -107,6 +107,14 @@
     left: 260px;
     width: 950px;
 
+    #whitekit-editor-diskette {
+      position: absolute;
+      right: 20px;
+      top: 8px;
+      z-index: 1;
+      display: none;
+    }
+
     #whitekit-editor-panel {
       position: absolute;
       top: -30px;
@@ -116,6 +124,16 @@
 
       #whitekit-editor-tools {
         float: right;
+
+        .whitekit-editor-icon {
+          margin-right: 5px;
+          float: right;
+          width: 30px;
+          height: 30px;
+          cursor: pointer;
+          opacity: 0.5;
+          filter: alpha(opacity=50);
+        }
       }
       #whitekit-editor-path {
         float: left;

@@ -35,16 +35,20 @@ module Whitekit::GeneralHelper
   end
 
   # Direcory view for admin
-  def whitekit_directory_view(path)
+  def whitekit_directory_view(path, opened = false)
     data = Whitekit.directory(path)
-    content_tag :ul, class: 'whitekit-directory' do # if folder is open then need add class: 'whitekit-directory-opened'
+    content_tag :ul, class: "whitekit-directory #{if opened then 'whitekit-directory-opened' end}" do
       content = ''
       data[:dir].each do |item|
         content << content_tag(:li) do
           sub = content_tag :span, class: 'whitekit-folder', data: {path: "#{path}/#{item}"} do
             item
           end
-          #sub + whitekit_directory_view("#{path}/#{item}").html_safe
+          if session[:whitekit_path] =~ /\[#{Regexp.escape("#{path}/#{item}")}\]/
+            sub + whitekit_directory_view("#{path}/#{item}", true).html_safe
+          else
+            sub
+          end
         end
       end
       data[:file].each do |item|
@@ -58,6 +62,11 @@ module Whitekit::GeneralHelper
     end.html_safe
   end
 
+  def whitekit_load_default_code
+    if session[:whitekit_file_path].present?
+      Whitekit.read_file(session[:whitekit_file_path])
+    end
+  end
 
   private
 

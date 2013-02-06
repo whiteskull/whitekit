@@ -12,12 +12,12 @@ window.WhitekitControl =
     oDate = new Date()
     oDate.setDate(days + oDate.getDate())
     # domain = self.location.host
-    document.cookie = name + "=" + value + "; path=/; expires=" + oDate.toGMTString()
+    document.cookie = name + '=' + value + '; path=/; expires=' + oDate.toGMTString()
 
   # delete cookie
   cookie_delete: (name)->
     # domain = self.location.host
-    document.cookie = name + "=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT"
+    document.cookie = name + '=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT'
 
 $(document).ready ->
 
@@ -114,7 +114,7 @@ $(document).ready ->
   # Ace editor
   ace_editor = ace.edit('whitekit-editor-code')
   ace_editor.setTheme('ace/theme/monokai')
-  ace_editor.getSession().setMode("ace/mode/ruby")
+  ace_editor.getSession().setMode("ace/mode/#{$('#whitekit-site #whitekit-editor-code').data('type')}")
   ace_editor.getSession().setTabSize(2)
   ace_editor.commands.addCommand
     name: 'save'
@@ -124,20 +124,32 @@ $(document).ready ->
         url: 'whitekit/save_file_content'
         type: 'post'
         data: {content: ace_editor.getValue(), path: $('#whitekit-site #whitekit-editor-path').text()}
+        beforeSend: ->
+          $('#whitekit-site #whitekit-editor-diskette').fadeIn(1000)
+          $('#whitekit-site #whitekit-editor-diskette img').remove()
+          $('#whitekit-site #whitekit-editor-diskette').append('<%= image_tag('whitekit/disckette.png') %>')
+        error: ->
+          $('#whitekit-site #whitekit-editor-diskette img').remove()
+          $('#whitekit-site #whitekit-editor-diskette').append('<%= image_tag('whitekit/disckette_error.png') %>')
         success: (data)->
-          console.log('well')
+          $('#whitekit-site #whitekit-editor-diskette').fadeOut(1000)
     readOnly: false
 
   # Click on folder in tree - hide or view children directory
   $(document).on 'click', '#whitekit-site .whitekit-folder', ->
+    path = $(this).data('path')
     if $(this).next().hasClass('whitekit-directory')
       # Hide subfolder
       if $(this).next().hasClass('whitekit-directory-opened')
         $(this).next().removeClass('whitekit-directory-opened').hide()
         $('.whitekit-directory', $(this).next()).removeClass('whitekit-directory-opened').hide()
+        # Remove path from session
+        $.post('/whitekit/session_path', { mode: 'remove', path: path } )
       # Show subfolder
       else
         $(this).next().addClass('whitekit-directory-opened').show()
+        # Add path to session
+        $.post('/whitekit/session_path', { mode: 'add', path: path } );
     else
       # Load subfolder
       unless $(this).hasClass('whitekit-folder-ajax')
@@ -146,7 +158,7 @@ $(document).ready ->
         $.ajax
           url: 'whitekit/get_folder_content'
           type: 'post'
-          data: {path: $(this).data('path')}
+          data: {path: path}
           success: (data)->
             block.after(data)
             block.next().addClass('whitekit-directory-opened')
@@ -154,6 +166,7 @@ $(document).ready ->
   # Click on file in tree - open file for editing
   $(document).on 'click', '#whitekit-site .whitekit-file', ->
     path = $(this).data('path')
+    $('#whitekit-site #whitekit-editor-diskette').hide()
     $.ajax
       url: '/whitekit/get_file_content'
       type: 'post'
@@ -189,6 +202,21 @@ $(document).ready ->
       WhitekitControl.cookie_set('whitekit-tree', 'opened')
       $(this).addClass('opened')
       $('#whitekit-site').animate({left: '0'}, 400)
+
+  # Hover on editor tools icon
+  $('#whitekit-site .whitekit-editor-icon').hover ->
+    $(this).stop().fadeTo(400, 1)
+  ,->
+    $(this).stop().fadeTo(400, 0.5)
+
+  $('#whitekit-site #whitekit-editor-save-file').click ->
+
+
+
+
+
+
+
 
 
 

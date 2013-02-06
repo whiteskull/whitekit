@@ -1,12 +1,17 @@
 - if user_signed_in? && current_user.admin?
   #whitekit-site{style: "#{if cookies['whitekit-tree'] == 'opened' then 'left: 0;' end}"}
     = whitekit_directory_view(Rails.root) if cookies['whitekit-tree'] == 'opened'
+    #whitekit-site-move{class: "#{if cookies['whitekit-tree'] == 'opened' then 'opened' end}"}
     #whitekit-editor
       #whitekit-editor-panel
         #whitekit-editor-tools
-        #whitekit-editor-path
-      #whitekit-editor-code
-    #whitekit-site-move{class: "#{if cookies['whitekit-tree'] == 'opened' then 'opened' end}"}
+          #whitekit-editor-close-file.whitekit-editor-icon
+            = image_tag('whitekit/close.png')
+          #whitekit-editor-save-file.whitekit-editor-icon
+            = image_tag('whitekit/save.png')
+        #whitekit-editor-path= session[:whitekit_file_path].presence
+      #whitekit-editor-code{data: {type: session[:whitekit_file_type].presence || 'text'}}= whitekit_load_default_code
+      #whitekit-editor-diskette
 
   #whitekit-tools{style: "#{if cookies['whitekit-tools'] == 'closed' then 'right: -214px;' end}"}
     .whitekit-slide-panel.w-open{style: "#{if cookies['whitekit-tools'] == 'closed' then 'display: none;' end}",
