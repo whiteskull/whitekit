@@ -63,8 +63,8 @@ module Whitekit::GeneralHelper
   end
 
   def whitekit_load_default_code
-    if session[:whitekit_file_path].present?
-      Whitekit.read_file(session[:whitekit_file_path])
+    if cookies[:whitekit_file_path].present?
+      Whitekit.read_file(cookies[:whitekit_file_path])
     end
   end
 

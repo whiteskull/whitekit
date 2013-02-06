@@ -4,13 +4,13 @@
     #whitekit-site-move{class: "#{if cookies['whitekit-tree'] == 'opened' then 'opened' end}"}
     #whitekit-editor
       #whitekit-editor-panel
-        #whitekit-editor-tools
-          #whitekit-editor-close-file.whitekit-editor-icon
-            = image_tag('whitekit/close.png')
+        #whitekit-editor-tools{style: "#{if cookies[:whitekit_file_path].blank? then 'display: none;' end}"}
           #whitekit-editor-save-file.whitekit-editor-icon
             = image_tag('whitekit/save.png')
-        #whitekit-editor-path= session[:whitekit_file_path].presence
-      #whitekit-editor-code{data: {type: session[:whitekit_file_type].presence || 'text'}}= whitekit_load_default_code
+          #whitekit-editor-close-file.whitekit-editor-icon
+            = image_tag('whitekit/close.png')
+        #whitekit-editor-path= cookies[:whitekit_file_path].presence
+      #whitekit-editor-code{data: {type: cookies[:whitekit_file_type].presence || 'text'}}= whitekit_load_default_code
       #whitekit-editor-diskette
 
   #whitekit-tools{style: "#{if cookies['whitekit-tools'] == 'closed' then 'right: -214px;' end}"}

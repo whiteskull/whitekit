@@ -1,25 +1,42 @@
 window.WhitekitControl =
 
-  # get cookie
+  # Get cookie
   cookie: (cookie_name)->
     result = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' )
     if result
       unescape ( result[2] )
     else
       ''
-  # set cookie
+  # Set cookie
   cookie_set: (name, value, days = 30)->
     oDate = new Date()
     oDate.setDate(days + oDate.getDate())
     # domain = self.location.host
     document.cookie = name + '=' + value + '; path=/; expires=' + oDate.toGMTString()
 
-  # delete cookie
+  # Delete cookie
   cookie_delete: (name)->
     # domain = self.location.host
     document.cookie = name + '=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT'
 
 $(document).ready ->
+
+  # Save file
+  whitekit_save_file= ()->
+    $.ajax
+      url: 'whitekit/save_file_content'
+      type: 'post'
+      data: {content: ace_editor.getValue(), path: $('#whitekit-site #whitekit-editor-path').text()}
+      beforeSend: ->
+        $('#whitekit-site #whitekit-editor-diskette').fadeIn(1000)
+        $('#whitekit-site #whitekit-editor-diskette img').remove()
+        $('#whitekit-site #whitekit-editor-diskette').append('<%= image_tag('whitekit/disckette.png') %>')
+      error: ->
+        $('#whitekit-site #whitekit-editor-diskette img').remove()
+        $('#whitekit-site #whitekit-editor-diskette').append('<%= image_tag('whitekit/disckette_error.png') %>')
+      success: (data)->
+        $('#whitekit-site #whitekit-editor-diskette').fadeOut(1000)
+
 
   # Hover on tools and image
   $('#whitekit-tools, #whitekit-tools a img').hover ->
@@ -120,19 +137,7 @@ $(document).ready ->
     name: 'save'
     bindKey: {win: 'Ctrl-S',  mac: 'Command-S'}
     exec: (editor)->
-      $.ajax
-        url: 'whitekit/save_file_content'
-        type: 'post'
-        data: {content: ace_editor.getValue(), path: $('#whitekit-site #whitekit-editor-path').text()}
-        beforeSend: ->
-          $('#whitekit-site #whitekit-editor-diskette').fadeIn(1000)
-          $('#whitekit-site #whitekit-editor-diskette img').remove()
-          $('#whitekit-site #whitekit-editor-diskette').append('<%= image_tag('whitekit/disckette.png') %>')
-        error: ->
-          $('#whitekit-site #whitekit-editor-diskette img').remove()
-          $('#whitekit-site #whitekit-editor-diskette').append('<%= image_tag('whitekit/disckette_error.png') %>')
-        success: (data)->
-          $('#whitekit-site #whitekit-editor-diskette').fadeOut(1000)
+      whitekit_save_file()
     readOnly: false
 
   # Click on folder in tree - hide or view children directory
@@ -173,6 +178,7 @@ $(document).ready ->
       dataType: 'json',
       data: {path: path}
       success: (data)->
+        $('#whitekit-site #whitekit-editor-tools').show()
         ace_editor.getSession().setMode("ace/mode/#{data.type}");
         ace_editor.setValue(data.content)
         ace_editor.gotoLine(1)
@@ -210,6 +216,15 @@ $(document).ready ->
     $(this).stop().fadeTo(400, 0.5)
 
   $('#whitekit-site #whitekit-editor-save-file').click ->
+    whitekit_save_file()
+
+  $('#whitekit-site #whitekit-editor-close-file').click ->
+    ace_editor.setValue('')
+    $('#whitekit-site #whitekit-editor-path').text('')
+    $('#whitekit-site #whitekit-editor-tools').hide()
+    WhitekitControl.cookie_delete('whitekit_file_type')
+    WhitekitControl.cookie_delete('whitekit_file_path')
+
 
 
 

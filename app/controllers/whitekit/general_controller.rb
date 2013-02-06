@@ -108,8 +108,8 @@ end
                       'text'
                   end
 
-    session[:whitekit_file_type] = data[:type]
-    session[:whitekit_file_path] = params[:path]
+    cookies[:whitekit_file_type] = data[:type]
+    cookies[:whitekit_file_path] = params[:path]
     respond_to do |format|
       format.js {
         render json: data
