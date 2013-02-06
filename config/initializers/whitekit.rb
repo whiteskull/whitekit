@@ -18,7 +18,7 @@ module Whitekit
     }
     if File.directory? path
       Dir.entries(path).sort.each do |item|
-        next if item == '.' || item == '..' || "#{path}/#{item}" == "#{Rails.root}/tmp"
+        next if item == '.' || item == '..' || "#{path}/#{item}" == "#{Rails.root}/tmp" || item == 'whitekit' || item == 'rails_admin'
         if File.directory? "#{path}/#{item}"
           data[:dir] << item unless item[0] == '.'
         else
