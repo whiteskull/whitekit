@@ -1,2 +1,2 @@
 %li.page
-  = link_to_unless item.alias == request.path_info[1..-1], item.title, page_path(item.alias)
+  = link_to_unless item.alias == request.path_info[1..-1], item.title, page_path(item.alias) if item.alias.present?

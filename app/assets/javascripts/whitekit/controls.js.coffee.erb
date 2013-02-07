@@ -25,7 +25,6 @@ $(document).ready ->
 
   # Ace editor
   whitekit_ace_editor= ()->
-    console.log('!!!');
     ace_editor = ace.edit('whitekit-editor-code')
     ace_editor.setTheme('ace/theme/monokai')
     ace_editor.getSession().setMode("ace/mode/#{$('#whitekit-site #whitekit-editor-code').data('type')}")
