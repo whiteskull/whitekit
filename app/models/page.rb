@@ -12,12 +12,18 @@ class Page < ActiveRecord::Base
   before_update :position_main_page
   before_create :set_max_position
   before_destroy :main_page
+  after_save :clear_menu_cache
 
   scope :visible, -> { where(hidden: false) }
   scope :get_by_alias, lambda { |name| name.present? ? where(alias: name).visible : visible  }
   scope :sort_by_position, -> { order('position ASC') }
 
   private
+
+  # Clear menu cache after save page
+  def clear_menu_cache
+    Rails.cache.clear 'main-menu'
+  end
 
   # Main page must not be destroyed
   def main_page

@@ -31,9 +31,17 @@ end
     end
   end
 
+  # Clear all caches
   # POST whitekit/clear_caches
   def clear_caches
-    FileUtils.rm_rf(Rails.root.join('tmp', 'cache'))
+    Rails.cache.clear
+
+    # If edit mode on then restart server in production
+    if cookies['whitekit-edit'] == 'on'
+      restart_path = Rails.root.join('tmp', 'restart.txt')
+      FileUtils.rm restart_path if File.exists? restart_path
+      FileUtils.touch restart_path
+    end
 
     respond_to do |format|
       format.js
@@ -91,7 +99,7 @@ end
   # POST whitekit/get_file_content
   def get_file_content
     data = {}
-    data[:content] = Whitekit.read_file(params[:path])
+    data[:content] = Whitekit.read_file(Rails.root.join(params[:path].strip))
 
     data[:type] = case params[:path]
                     when /\.rb/
@@ -140,7 +148,7 @@ end
 
   # POST whitekit/save_file_content
   def save_file_content
-    File.open(params[:path].strip, 'w+') do |f|
+    File.open(Rails.root.join(params[:path].strip), 'w+') do |f|
       f.write(params[:content])
     end
     render text: true

@@ -122,7 +122,6 @@ $(document).ready ->
 
   # Click on editable blocks
   $('.white_block').click ->
-    console.log($(this).class);
     edit = WhitekitControl.cookie('whitekit-edit')
     if edit == 'on'
       block = $(this).attr('id')
@@ -133,13 +132,13 @@ $(document).ready ->
   $('#whitekit-tools #whitekit-edit').click (e)->
     e.preventDefault()
     edit = WhitekitControl.cookie('whitekit-edit')
-    console.log(edit);
     if edit == 'on'
       WhitekitControl.cookie_delete('whitekit-edit')
-      document.location.reload()
+      WhitekitControl.cookie_delete('whitekit-tree')
     else
       WhitekitControl.cookie_set('whitekit-edit', 'on')
-      document.location.reload()
+
+    document.location.reload()
 
   # Click on clear caches in tools
   $('#whitekit-tools #whitekit-clear-caches').click ->
@@ -210,7 +209,7 @@ $(document).ready ->
         $.ajax
           url: '/whitekit/get_folder_content'
           type: 'post'
-          data: {path: '<%= Rails.root.join('app').to_s %>'}
+          data: {path: 'app'}
           success: (data)->
             $('#whitekit-site').prepend(data)
       WhitekitControl.cookie_set('whitekit-tree', 'opened')

@@ -36,12 +36,12 @@ module Whitekit::GeneralHelper
 
   # Direcory view for admin
   def whitekit_directory_view(path, opened = false)
-    data = Whitekit.directory(path)
+    data = Whitekit.directory(Rails.root.join(path))
     content_tag :ul, class: "whitekit-directory #{if opened then 'whitekit-directory-opened' end}" do
       content = ''
       data[:dir].each do |item|
         content << content_tag(:li) do
-          sub = content_tag :span, class: 'whitekit-folder', data: {path: "#{path}/#{item}"} do
+          sub = content_tag :span, class: 'whitekit-folder', data: {path: "#{path.gsub(Rails.root.to_s, '')}/#{item}"} do
             item
           end
           if session[:whitekit_path] =~ /\[#{Regexp.escape("#{path}/#{item}")}\]/
@@ -53,7 +53,7 @@ module Whitekit::GeneralHelper
       end
       data[:file].each do |item|
         content << content_tag(:li) do
-          content_tag :span, class: 'whitekit-file', data: {path: "#{path}/#{item}"} do
+          content_tag :span, class: 'whitekit-file', data: {path: "#{path.gsub(Rails.root.to_s, '')}/#{item}"} do
             item
           end
         end

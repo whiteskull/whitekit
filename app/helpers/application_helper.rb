@@ -19,14 +19,16 @@ module ApplicationHelper
   end
 
   # Breadcrumbs
-  def breadcrumbs(item)
-    breadcrumbs_html = ''
-    item.ancestors.each do |page|
-      link = page.alias.present? ? page_path(page.alias) : root_path
-      breadcrumbs_html << link_to(page.title, link) + ' · '
+  def breadcrumbs
+    if @page.present?
+      breadcrumbs_html = ''
+      @page.ancestors.each do |page|
+        link = page.alias.present? ? page_path(page.alias) : root_path
+        breadcrumbs_html << link_to(page.title, link) + ' · '
+      end
+      breadcrumbs_html << @page.title
+      raw breadcrumbs_html
     end
-    breadcrumbs_html << item.title
-    raw breadcrumbs_html
   end
 
   # Check if user admin?
