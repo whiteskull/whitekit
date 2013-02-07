@@ -33,7 +33,7 @@ end
 
   # POST whitekit/clear_caches
   def clear_caches
-    @clear = system('rm -rf tmp/cache')
+    FileUtils.rm_rf(Rails.root.join('tmp', 'cache'))
 
     respond_to do |format|
       format.js
