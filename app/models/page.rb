@@ -15,7 +15,7 @@ class Page < ActiveRecord::Base
   after_save :clear_menu_cache
 
   scope :visible, -> { where(hidden: false) }
-  scope :get_by_alias, lambda { |name| name.present? ? where(alias: name).visible : visible  }
+  scope :get_by_alias, lambda { |name| name.present? ? where(alias: name).visible : visible }
   scope :sort_by_position, -> { order('position ASC') }
 
   private
@@ -36,7 +36,7 @@ class Page < ActiveRecord::Base
       self.link = '/'
     else
       field = link.blank? ? title : link
-      self.link = Russian.translit(field.gsub(/ /, '-')).downcase
+      self.link = Russian.translit(field.strip.gsub(/ /, '-')).downcase if field.present?
     end
   end
 
@@ -56,7 +56,6 @@ class Page < ActiveRecord::Base
       self.make_alias(menu.children)
     end
   end
-
   def self.make_alias(menus, path = '')
     menus.each do |menu|
       alias_link = path + '/' + menu.link

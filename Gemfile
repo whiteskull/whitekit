@@ -39,6 +39,10 @@ group :development do
   gem 'binding_of_caller'
 end
 
+group :test do
+  gem 'rspec-rails'
+end
+
 group :production do
   gem 'mysql2'
 end
