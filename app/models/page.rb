@@ -36,7 +36,7 @@ class Page < ActiveRecord::Base
       self.link = '/'
     else
       field = link.blank? ? title : link
-      self.link = Russian.translit(field.strip.gsub(/ /, '-')).downcase if field.present?
+      self.link = Russian.translit(field.strip.gsub(/ /, '-').gsub(/[^A-Za-z0-9\-_]/, '')).downcase if field.present?
     end
   end
 

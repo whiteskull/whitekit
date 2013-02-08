@@ -15,6 +15,6 @@ class BlockPosition < ActiveRecord::Base
 
   # Make alias lower case and replace space to underscore
   def alias_processing
-    self.alias = Russian.translit(self.alias.downcase.gsub(' ', '_'))
+    self.alias = Russian.translit(self.alias.strip.gsub(' ', '_').gsub(/[\W\d]/, '')).downcase
   end
 end
