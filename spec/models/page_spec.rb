@@ -2,6 +2,20 @@ require 'spec_helper'
 
 describe Page do
 
+  context "validate" do
+
+    it "presence of title" do
+      subject.title = nil
+      subject.should validate_presence_of(:title)
+    end
+
+    it "presence of link" do
+      subject.link = nil
+      subject.should validate_presence_of(:link)
+    end
+
+  end
+
   it "responds to" do
     should respond_to(:content, :description, :hidden, :keywords, :redirect_to, :title, :to_first,
                               :link, :title_seo, :title_page)
@@ -14,26 +28,15 @@ describe Page do
 
   it "should have first page (main page) by default" do
     page = Page.first
-    page.link.should eql '/'
-  end
-
-  it "is invalid without a title" do
-    page = Page.new
-    page.should_not be_valid
-    page.title = 'Some title'
-    page.should be_valid
+    page.link.should eq '/'
   end
 
   it "set a link from the title" do
-    page = Page.create({title: 'New page'}, as: :admin)
-    page.link.should eql 'new-page'
+    create(:page).link.should eq 'new-page'
   end
 
   it "should have correct link" do
-    page = Page.create({title: 'New page'}, as: :admin)
-    page.link = '   pAGe 109-!@#$%^&*()[].,/VEry_*+nEW    '
-    page.save
-    page.link.should eql 'page-109-very_new'
+    create(:page, link: '   pAGe 109-!@#$%^&*()[].,/VEry_*+nEW    ').link.should eq 'page-109-very_new'
   end
 
 end

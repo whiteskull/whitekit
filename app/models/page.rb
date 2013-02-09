@@ -58,7 +58,7 @@ class Page < ActiveRecord::Base
   end
   def self.make_alias(menus, path = '')
     menus.each do |menu|
-      alias_link = path + '/' + menu.link
+      alias_link = "#{path}/#{menu.link}"
       menu.update_attribute(:alias, alias_link[1..-1])
       self.make_alias(menu.children, alias_link)
     end

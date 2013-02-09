@@ -34,13 +34,15 @@ group :assets do
 end
 
 group :development do
-  gem 'sqlite3'
   gem 'better_errors'
   gem 'binding_of_caller'
 end
 
-group :test do
+group :development, :test do
+  gem 'sqlite3'
   gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'capybara'
 end
 
 group :production do
