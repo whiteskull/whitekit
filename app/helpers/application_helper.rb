@@ -35,4 +35,8 @@ module ApplicationHelper
   def admin?
     user_signed_in? && current_user.admin?
   end
+
+  def separate_links(separate)
+    '·' unless separate == false
+  end
 end

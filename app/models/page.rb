@@ -8,7 +8,7 @@ class Page < ActiveRecord::Base
   validates_presence_of :title, :link
   validates_uniqueness_of :alias, allow_blank: true
 
-  before_validation :set_link
+  before_validation :set_link, :check_alias
   before_update :position_main_page
   before_create :set_max_position
   before_destroy :main_page
@@ -19,6 +19,10 @@ class Page < ActiveRecord::Base
   scope :sort_by_position, -> { order('position ASC') }
 
   private
+
+  def check_alias
+    self.alias = "#{self.alias}-#{rand(10) + 10}" if Page.where(alias: self.alias).count > 0
+  end
 
   # Clear menu cache after save page
   def clear_menu_cache
@@ -59,7 +63,8 @@ class Page < ActiveRecord::Base
   def self.make_alias(menus, path = '')
     menus.each do |menu|
       alias_link = "#{path}/#{menu.link}"
-      menu.update_attribute(:alias, alias_link[1..-1])
+      menu.alias = alias_link[1..-1]
+      menu.save
       self.make_alias(menu.children, alias_link)
     end
   end

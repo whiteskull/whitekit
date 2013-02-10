@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require lightbox
+//= require bootstrap-alert
 //= require actions

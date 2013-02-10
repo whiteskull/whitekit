@@ -1,2 +1,6 @@
-%p.notice{style: display_none_if(!notice)}= notice
-%p.alert{style: display_none_if(!alert)}= alert
+%div.alert.alert-success{style: display_none_if(!notice)}
+  %button.close{type: 'button', data: {dismiss: 'alert'}} &times;
+  = notice
+%div.alert.alert-error{style: display_none_if(!alert)}
+  %button.close{type: 'button', data: {dismiss: 'alert'}} &times;
+  = alert

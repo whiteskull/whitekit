@@ -21,6 +21,9 @@ a {
 		text-decoration: none;
 	}
 }
+.center {
+	text-align: center;
+}
 #wrapper {
 	min-width: 1000px;
 	max-width: 1250px;
@@ -52,6 +55,36 @@ a {
 
 			#content {
 				padding: 10px 270px 10px 270px;
+
+				#devise-form {
+					margin: 0 auto;
+					width:  570px;
+
+					.devise-actions {
+						margin-top: 50px;
+						text-align: center;
+					}
+					h2 {
+						text-align: center;
+						margin-bottom: 50px;
+					}
+					h3 {
+						margin-top: 50px;
+						text-align: center;
+					}
+					.control-group {
+
+						.controls {
+
+							label.with-input {
+								cursor: pointer;
+								display: inline;
+								float: none;
+								vertical-align: middle;
+							}
+						}
+					}
+				}
 			}
 		}
 		.sidebar {
@@ -82,3 +115,15 @@ a {
 	background: #bff08e;
 	position: relative;
 }
+.control-group {
+
+	.controls {
+		
+		.help-block {
+
+			font-size: 12px;
+			margin-top: 0;
+		}
+	}
+}
+

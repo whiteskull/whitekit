@@ -123,6 +123,7 @@ ru:
         menu: "Дерево"
         breadcrumb: "Дерево"
         success: 'Дерево успешно изменено'
+        error: "Ошибка"
       dashboard:
         title: "Администратор сайта"
         menu: "Панель"

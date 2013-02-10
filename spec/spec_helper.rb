@@ -9,6 +9,8 @@ require 'capybara/rspec'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+I18n.locale = :en
+
 RSpec.configure do |config|
   # ## Mock Framework
   #
