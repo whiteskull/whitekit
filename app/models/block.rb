@@ -82,6 +82,8 @@ class Block < ActiveRecord::Base
         component_params = block.component_params.delete(' ').delete("^\u{0000}-\u{007F}").split(/\r\n/).map do |param|
           param = param.split(':')
           param[0] = param.first.to_sym
+          param[1] = true if param.second == 'true'
+          param[1] = false if param.second == 'false'
           param
         end
         params = Hash[component_params]
