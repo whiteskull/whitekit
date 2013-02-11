@@ -2,18 +2,10 @@
 # All your instance variables can be accessed at view: /app/views/components/{name of component}/_index.haml
 # Actions begin with a method MAIN
 class BaseComponent
-  cattr_accessor :request, :count
+  cattr_accessor :request
 
   def initialize(options = {})
     @options = options
-
-    @@count = {} if @@count.nil?
-
-    if @@count.key? self.class.to_s
-      @@count[self.class.to_s] += 1
-    else
-      @@count[self.class.to_s] = 1
-    end
   end
 
   # Starting method for components
