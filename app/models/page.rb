@@ -11,7 +11,7 @@ class Page < ActiveRecord::Base
   before_validation :set_link, :check_alias
   before_update :position_main_page
   before_create :set_max_position
-  before_destroy :main_page
+  before_destroy :main_page_not_destroy
   after_save :clear_menu_cache
 
   scope :visible, -> { where(hidden: false) }
@@ -21,7 +21,9 @@ class Page < ActiveRecord::Base
   private
 
   def check_alias
-    self.alias = "#{self.alias}-#{rand(10) + 10}" if Page.where(alias: self.alias).count > 0
+    unless Page.first == self
+      self.alias = "#{self.alias}-#{rand(10) + 10}" if Page.where(alias: self.alias).count > 0
+    end
   end
 
   # Clear menu cache after save page
@@ -30,7 +32,7 @@ class Page < ActiveRecord::Base
   end
 
   # Main page must not be destroyed
-  def main_page
+  def main_page_not_destroy
     false if Page.first == self
   end
 
