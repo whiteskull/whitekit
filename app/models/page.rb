@@ -8,11 +8,12 @@ class Page < ActiveRecord::Base
   validates_presence_of :title, :link
   validates_uniqueness_of :alias, allow_blank: true
 
-  before_validation :set_link, :check_alias
+  before_validation :set_link
+  before_validation :check_alias, unless: :root_page?
   before_update :position_main_page
   before_create :set_max_position
   before_destroy :main_page_not_destroy
-  after_save :clear_menu_cache
+  after_save :clear_menu_cache, unless: :root_page?
 
   scope :visible, -> { where(hidden: false) }
   scope :get_by_alias, lambda { |name| name.present? ? where(alias: name).visible : visible }
@@ -20,10 +21,13 @@ class Page < ActiveRecord::Base
 
   private
 
+  # Check if page is root
+  def root_page?
+    true if Page.first == self
+  end
+
   def check_alias
-    unless Page.first == self
-      self.alias = "#{self.alias}-#{rand(10) + 10}" if Page.where(alias: self.alias).count > 0
-    end
+    self.alias = "#{self.alias}-#{rand(10) + 10}" if Page.where(alias: self.alias).count > 0
   end
 
   # Clear menu cache after save page
