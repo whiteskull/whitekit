@@ -30,8 +30,13 @@ The default directory structure application:
 |-- app    > Holds all the code that's specific to this particular application.
 |   |-- assets    > Contains subdirectories for images, stylesheets, and JavaScript files.
 |   |   |-- images
+|   |     `-- components    > Better place for your images of component
 |   |   |-- javascripts    > Use CoffeeScript by default.
+|   |     `-- components    > Place for your javascripts of component
 |   |   `-- stylesheets    > Use SCSS by default.
+|   |     `-- components    > Place for your stylesheets of component
+|   |-- components    > Holds your own components that should be named like slider_component.rb and
+                        should be inherited from BaseComponent
 |   |-- controllers    > Holds controllers that should be named like weblogs_controller.rb for automated URL mapping.
 |   |                    All controllers should descend from ApplicationController.
 |   |-- helpers    > Holds view helpers that should be named like weblogs_helper.rb. These are
@@ -41,6 +46,7 @@ The default directory structure application:
 |   |-- models    > Holds models that should be named like post.rb. Models descend from ActiveRecord::Base by default.
 |   `-- views    > Holds the template files for the view that should be named like weblogs/index.html.haml
 |       |          for the WeblogsController#index action. All views use Haml syntax by default.
+|       |-- components    > Place for your views of component
 |       `-- layouts    > Holds the template files for layouts to be used with views. This models the
 |                        common header/footer method of wrapping views. In your views, define a layout
 |                        using the 'layout :default' and create a file named default.html.erb.
@@ -59,12 +65,13 @@ The default directory structure application:
 |-- public    > The directory available for the web server. Also contains the dispatchers and the
 |               default HTML files. This should be set as the DOCUMENT_ROOT of your web server.
 |-- script    > Helper scripts for automation and generation.
-|-- test    > Unit and functional tests along with fixtures.
-|   |-- fixtures
-|   |-- functional
-|   |-- integration
-|   |-- performance
-|   `-- unit
+|-- spec    > Rspec tests
+|   |-- controllers
+|   |-- factories
+|   |-- features
+|   |-- helpers
+|   |-- models
+|   `-- support
 |-- tmp
 |   |-- cache
 |   |-- pids
@@ -85,10 +92,12 @@ The default directory structure application:
 
 You can enter in administrator back-end
 
-**xxx.xx/admin**
+    **xxx.xx/admin**
 
+```text
 email: admin@mail.ru
 password: password
+```
 
 ### I18n rails admin
 

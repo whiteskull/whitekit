@@ -48,8 +48,7 @@ describe PagesController do
     get 'index'
     response.body.should have_selector('title', :text => 'Main page')
 
-    page = Page.first
-    page.update_attribute(:title, 'Other title')
+    Page.first.update_attribute(:title, 'Other title')
     get 'index'
     response.body.should have_selector('title', :text => 'Other title')
   end
