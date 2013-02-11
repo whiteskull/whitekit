@@ -96,6 +96,7 @@ class Block < ActiveRecord::Base
       # All instance values of components pass to view
       vars = component.instance_values
       vars[:block] = block
+      vars[:asset_component_path] = "components/#{block[:component]}/#{block[:component_theme].presence || 'default'}/"
       vars.keys.each do |key|
         vars[(key.to_sym rescue key) || key] = vars.delete(key)
       end
