@@ -5,7 +5,7 @@
 First you need to download **WhiteKit**
 
 ```bash
-$ git@github.com:whiteskull/whitekit.git
+$ git clone git@github.com:whiteskull/whitekit.git
 ```
 
 Then you need to install gems
