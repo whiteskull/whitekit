@@ -36,7 +36,7 @@ The default directory structure application:
 |   |   `-- stylesheets    > Use SCSS by default.
 |   |     `-- components    > Place for your stylesheets of component
 |   |-- components    > Holds your own components that should be named like slider_component.rb and
-                        should be inherited from BaseComponent
+|   |                   should be inherited from BaseComponent
 |   |-- controllers    > Holds controllers that should be named like weblogs_controller.rb for automated URL mapping.
 |   |                    All controllers should descend from ApplicationController.
 |   |-- helpers    > Holds view helpers that should be named like weblogs_helper.rb. These are
