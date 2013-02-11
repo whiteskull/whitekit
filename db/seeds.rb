@@ -13,7 +13,7 @@ User.create({email: 'admin@mail.com', password: 'password', admin: true}, withou
 
 # Create root page
 Page.delete_all
-Page.create({title: 'Main page', link: '/', position: 1}, without_protection: true)
+Page.new({title: 'Main page', link: '/', position: 1}, without_protection: true).save(validate: false)
 
 # Create block position
 BlockPosition.delete_all
