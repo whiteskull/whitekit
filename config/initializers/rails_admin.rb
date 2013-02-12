@@ -4,7 +4,7 @@ I18n.default_locale = :en
 # RailsAdmin config file. Generated on January 21, 2013 10:20
 # See github.com/sferik/rails_admin for more informations
 
-GEM_COMPONENTS = %W(news)
+GEM_COMPONENTS = %W(news slider)
 
 RailsAdmin.config do |config|
 

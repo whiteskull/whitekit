@@ -18,7 +18,10 @@ gem 'rails_admin_nestable'
 gem 'russian', '~> 0.6.0'
 
 # Use whitekit news
-#gem 'whitekit_news', '1.1.0'
+#gem 'whitekit_news'
+
+# Use whitekit slider
+#gem 'whitekit_slider'
 
 # Gems used only for assets and not required
 # in production environments by default.
