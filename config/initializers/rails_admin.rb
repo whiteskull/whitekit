@@ -56,7 +56,7 @@ RailsAdmin.config do |config|
     # Add the nestable action for each model
     nestable do
       visible do
-        %w(Page Block).include? bindings[:abstract_model].model_name
+        %w(Page Block SliderImage).include? bindings[:abstract_model].model_name
       end
     end
   end
