@@ -21,5 +21,5 @@ block_position = BlockPosition.create({name: 'Right column', alias: 'right', hid
 
 # Create copyright block
 Block.delete_all
-block_position.blocks.create({name: 'About WhiteKit', alias: 'copyright', content: '<strong>WhiteKit</strong> is simple, convenient and safe'}, as: :admin)
+block_position.blocks.create({name: 'About WhiteKit', alias: 'whitekit', content: '<strong>WhiteKit</strong> is simple, convenient and safe'}, as: :admin)
 Block.create({name: 'Copyright', alias: 'copyright', content: '<p><strong>© WhiteKit</strong>, 2013</p>'}, as: :admin)
