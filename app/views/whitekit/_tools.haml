@@ -20,11 +20,15 @@
                                   class: "#{if cookies['whitekit-tools'] == 'closed' then 'visible' end}"}
 
     #whitekit-caches
-      = link_to image_tag('whitekit/cache.png'), whitekit_clear_caches_path, id: 'whitekit-clear-caches', remote: true, method: :post
+      = link_to image_tag('whitekit/cache.png'), whitekit_clear_caches_path, id: 'whitekit-clear-caches',
+                                                 remote: true, method: :post, title: t('admin.clear_cache')
       = image_tag 'whitekit/loader.gif', id: 'whitekit-clear-caches-loader', style: 'display: none;'
       = image_tag 'whitekit/cache_ok.png', id: 'whitekit-clear-caches-cleared', style: 'display: none;'
-    = link_to image_tag('whitekit/tree.png'), '/admin/page/nestable'
-    = link_to image_tag('whitekit/users.png'), '/admin/user'
-    = link_to image_tag('whitekit/dashboard.png'), rails_admin_path
-    = link_to image_tag("whitekit/#{if cookies['whitekit-edit'] == 'on' then 'on.png' else 'off.png' end}"), '#', id: 'whitekit-edit'
+    = link_to image_tag('whitekit/tree.png'), '/admin/page/nestable', title: t('admin.page_tree')
+    = link_to image_tag('whitekit/users.png'), '/admin/user', title: t('admin.users')
+    = link_to image_tag('whitekit/dashboard.png'), rails_admin_path, title: t('admin.dashboard')
+    = link_to image_tag("whitekit/#{if cookies['whitekit-edit'] == 'on' then 'on.png' else 'off.png' end}"), '#', id: 'whitekit-edit',
+              title: "#{cookies['whitekit-edit'] == 'on' ? t('admin.edit_off') : t('admin.edit_on')}"
+
+
 
