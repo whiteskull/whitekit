@@ -227,7 +227,7 @@ DEPENDENCIES
   mysql2
   rails (= 3.2.11)
   rails_admin
-  rails_admin_nestable
+  rails_admin_nestable (= 0.0.9)
   rspec-rails
   russian (~> 0.6.0)
   sass-rails (~> 3.2.3)
