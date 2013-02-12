@@ -11,9 +11,11 @@ end
 
 ENV['RAILS_ADMIN_THEME'] = 'white'
 
-# default values for WhiteKit
-WHITE = {
-    news_per_page: 7
+# default values for WhiteKit (often used in the gem components)
+WHITEKIT = {
+    news_per_page: 7,
+    slider_width: 750,
+    slider_height: 250
 }
 
 module Whitekit

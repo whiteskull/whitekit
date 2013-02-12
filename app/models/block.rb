@@ -1,5 +1,7 @@
 # coding: utf-8
 class Block < ActiveRecord::Base
+  default_scope order('position ASC')
+
   belongs_to :block_position
 
   attr_accessible :block_position_id, as: :admin
