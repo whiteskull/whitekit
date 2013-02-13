@@ -8,7 +8,7 @@ class Page < ActiveRecord::Base
   validates_presence_of :title, :link
   validates_uniqueness_of :alias, allow_blank: true
 
-  before_validation :set_link
+  before_validation :set_link, unless: :root_page?
   before_validation :check_alias, unless: :root_page?
   before_update :position_main_page
   before_create :set_max_position
@@ -23,7 +23,7 @@ class Page < ActiveRecord::Base
 
   # Check if page is root
   def root_page?
-    true if Page.first == self
+    true if link == '/'
   end
 
   def check_alias
@@ -37,22 +37,21 @@ class Page < ActiveRecord::Base
 
   # Main page must not be destroyed
   def main_page_not_destroy
-    false if Page.first == self
+    false if link == '/'
   end
 
   # Set page link if empty, also translit russian to english
   def set_link
-    if Page.first == self
-      self.link = '/'
-    else
-      field = link.blank? ? title : link
-      self.link = Russian.translit(field.strip.gsub(/ /, '-').gsub(/[^A-Za-z0-9\-_]/, '')).downcase if field.present?
+    field = link.blank? ? title : link
+    if field.present?
+      link_new = Russian.translit(field.strip.gsub(/ /, '-').gsub(/[^A-Za-z0-9\-_]/, '')).downcase
+      self.link = link_new unless link_new == '/'
     end
   end
 
   # Don't change position of main page
   def position_main_page
-    false if Page.first == self && (position != 1 || !ancestry.nil?)
+    false if link == '/' && (position != 1 || !ancestry.nil?)
   end
 
   # Set max position to new pages
