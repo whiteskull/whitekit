@@ -15,7 +15,7 @@ Whitekit::Application.configure do
   config.assets.compress = true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = true
+  config.assets.compile = false
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -65,10 +65,13 @@ Whitekit::Application.configure do
   config.active_support.deprecation = :notify
 
   # Include all js and css files in assets
+  config.assets.precompile += %w(components/* whitekit/*)
+
   files = Dir[Rails.root.join('app', 'assets', '{javascripts,stylesheets}', '**', '[^_]*.{js,css}*')]
   files.map! {|file| file.sub(%r(#{Rails.root}/app/assets/(javascripts|stylesheets)/), '') }
   files.map! {|file| file.sub(%r(\.(coffee|scss)), '') }
   config.assets.precompile += files
+
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)

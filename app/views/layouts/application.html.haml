@@ -16,6 +16,7 @@
         #side-left.sidebar
           = render 'layouts/main_menu'
         #side-right.sidebar
+          = block_view :slider
           = block_position_view :right
     #footer
       = block_view :copyright
