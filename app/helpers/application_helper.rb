@@ -12,7 +12,8 @@ module ApplicationHelper
         if page.link == root_page
           content_tag(:ul, nested_pages(sub_pages), class: 'root-pages')
         elsif page.ancestry
-          render(partial: 'pages/item_menu', locals: {item: page}) + content_tag(:ul, nested_pages(sub_pages), class: "nested-pages level-#{page.depth}")
+          ul_sub = page.has_children? ? content_tag(:ul, nested_pages(sub_pages), class: "nested-pages level-#{page.depth}") : ''
+          render(partial: 'pages/item_menu', locals: {item: page, ul_sub: ul_sub})
         end
       end
     end.join.html_safe
