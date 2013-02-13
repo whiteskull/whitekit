@@ -7,7 +7,7 @@ gem 'rails', '3.2.11'
 
 gem 'haml-rails'
 gem 'devise'
-gem 'rails_admin'
+gem 'rails_admin', git: 'git@github.com:sferik/rails_admin.git'
 gem 'ckeditor'
 gem 'carrierwave'
 gem 'mini_magick'
