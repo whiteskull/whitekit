@@ -1,10 +1,10 @@
 - if user_signed_in? && current_user.admin?
   #whitekit-site{style: "#{if cookies['whitekit-tree'] == 'opened' then 'left: 0;' end}#{if cookies['whitekit-edit'] != 'on' then 'display: none;' end}"}
     = whitekit_directory_view('app') if cookies['whitekit-tree'] == 'opened'
-    #whitekit-site-move{class: "#{if cookies['whitekit-tree'] == 'opened' then 'opened' end}"}
+    #whitekit-site-move{class: if cookies['whitekit-tree'] == 'opened' then 'opened' end}
     #whitekit-editor
       #whitekit-editor-panel
-        #whitekit-editor-tools{style: "#{if cookies[:whitekit_file_path].blank? then 'display: none;' end}"}
+        #whitekit-editor-tools{style: if cookies[:whitekit_file_path].blank? then 'display: none;' end}
           #whitekit-editor-save-file.whitekit-editor-icon
             = image_tag('whitekit/save.png')
           #whitekit-editor-close-file.whitekit-editor-icon
@@ -13,11 +13,11 @@
       #whitekit-editor-code{data: {type: cookies[:whitekit_file_type].presence || 'text'}}= whitekit_load_default_code
       #whitekit-editor-diskette
 
-  #whitekit-tools{style: "#{if cookies['whitekit-tools'] == 'closed' then 'right: -214px;' end}"}
-    .whitekit-slide-panel.w-open{style: "#{if cookies['whitekit-tools'] == 'closed' then 'display: none;' end}",
-                                 class: "#{if cookies['whitekit-tools'].blank? then 'visible' end}"}
-    .whitekit-slide-panel.w-close{style: "#{if cookies['whitekit-tools'].blank? then 'display: none;' end}",
-                                  class: "#{if cookies['whitekit-tools'] == 'closed' then 'visible' end}"}
+  #whitekit-tools{style: if cookies['whitekit-tools'] == 'closed' then 'right: -214px;' end}
+    .whitekit-slide-panel.w-open{style: if cookies['whitekit-tools'] == 'closed' then 'display: none;' end,
+                                 class: if cookies['whitekit-tools'].blank? then 'visible' end}
+    .whitekit-slide-panel.w-close{style: if cookies['whitekit-tools'].blank? then 'display: none;' end,
+                                  class: if cookies['whitekit-tools'] == 'closed' then 'visible' end}
 
     #whitekit-caches
       = link_to image_tag('whitekit/cache.png'), whitekit_clear_caches_path, id: 'whitekit-clear-caches',
@@ -28,7 +28,7 @@
     = link_to image_tag('whitekit/users.png'), '/admin/user', title: t('admin.users')
     = link_to image_tag('whitekit/dashboard.png'), rails_admin_path, title: t('admin.dashboard')
     = link_to image_tag("whitekit/#{if cookies['whitekit-edit'] == 'on' then 'on.png' else 'off.png' end}"), '#', id: 'whitekit-edit',
-              title: "#{cookies['whitekit-edit'] == 'on' ? t('admin.edit_off') : t('admin.edit_on')}"
+              title: cookies['whitekit-edit'] == 'on' ? t('admin.edit_off') : t('admin.edit_on')
 
 
 
