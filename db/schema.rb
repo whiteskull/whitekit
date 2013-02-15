@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130204104815) do
+ActiveRecord::Schema.define(:version => 20130211120034) do
 
   create_table "block_positions", :force => true do |t|
     t.string   "name"
@@ -85,6 +85,17 @@ ActiveRecord::Schema.define(:version => 20130204104815) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
+
+  create_table "slider_images", :force => true do |t|
+    t.string   "title"
+    t.boolean  "title_view", :default => true
+    t.string   "image"
+    t.string   "link"
+    t.boolean  "hidden",     :default => false
+    t.integer  "position"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false

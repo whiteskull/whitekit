@@ -2,5 +2,5 @@
   - if item.redirect_to =~ /^http/
     = link_to item.title, item.redirect_to, target: '_blank'
   - else
-    = link_to item.title, page_path(item.alias)
+    = link_to item.title, page_path(item.alias) if item.alias.present?
   = ul_sub

@@ -14,6 +14,7 @@ class Page < ActiveRecord::Base
   before_create :set_max_position
   before_destroy :main_page_not_destroy
   after_save :clear_menu_cache, unless: :root_page?
+  before_save :check_separator
 
   scope :visible, -> { where(hidden: false) }
   scope :get_by_alias, lambda { |name| name.present? ? where(alias: name).visible : visible }
@@ -21,13 +22,26 @@ class Page < ActiveRecord::Base
 
   private
 
+  # Separator can be only root page
+  def check_separator
+    false if link =~ /^separator-/ && !ancestry.nil?
+  end
+
   # Check if page is root
   def root_page?
     true if link == '/'
   end
 
   def check_alias
-    self.alias = "#{self.alias}-#{rand(10) + 10}" if Page.where(alias: self.alias).count > 0
+    if link =~ /^separator-/
+      self.alias = nil
+    else
+      cnt = self.new_record? ? 0 : 1
+      if link_changed?
+        self.alias = self.alias.present? && self.alias =~ /\// ? self.alias.split('/')[0..-2].join('/') + "/#{link}" : link
+      end
+      self.alias = "#{self.alias}-#{rand(998) + 1}" if Page.where(alias: self.alias).count > cnt
+    end
   end
 
   # Clear menu cache after save page
