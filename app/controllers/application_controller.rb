@@ -4,6 +4,11 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
+  # Get page by alias
+  def get_page(name)
+    @page = name.nil? ? Page.home.first : Page.get_by_alias(name).first
+  end
+
   private
 
   # Get main menu from pages

@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   # View page
   # GET /some/page
   def index
-    @page = Page.get_by_alias(params[:alias]).first
+    get_page(params[:alias])
 
     # Render not found page if page not found or hidden
     # TODO: do not found if among parent pages there are hidden
