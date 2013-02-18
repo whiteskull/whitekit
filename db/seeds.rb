@@ -17,7 +17,7 @@ Page.new({title: 'Main page', link: '/', position: 1}, without_protection: true)
 
 # Create block position
 BlockPosition.delete_all
-block_position = BlockPosition.create({name: 'Right column', alias: 'right', hidden: false}, as: :admin)
+block_position = BlockPosition.create({name: 'Right column', alias: 'right'}, as: :admin)
 
 # Create copyright block
 Block.delete_all

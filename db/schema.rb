@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130211120034) do
+ActiveRecord::Schema.define(:version => 20130218105756) do
 
   create_table "block_positions", :force => true do |t|
     t.string   "name"
     t.string   "alias"
-    t.boolean  "hidden",     :default => true
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.boolean  "hidden",     :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "blocks", :force => true do |t|
