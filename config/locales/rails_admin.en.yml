@@ -27,3 +27,5 @@ en:
       create: "Create"
       name_component: "Component name"
       analytics: "Analytics"
+      database: "Database"
+      error: "An unexpected error occurred!"

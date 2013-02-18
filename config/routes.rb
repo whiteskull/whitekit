@@ -9,6 +9,7 @@ Whitekit::Application.routes.draw do
     post 'whitekit/get_folder_content' => :get_folder_content, as: 'whitekit_get_folder_content'
     post 'whitekit/save_file_content' => :save_file_content, as: 'whitekit_save_file_content'
     post 'whitekit/session_path' => :session_path, as: 'whitekit_session_path'
+    post 'whitekit/db_backup' => :db_backup, as: 'whitekit_db_backup'
   end
 
   mount Ckeditor::Engine => '/ckeditor'

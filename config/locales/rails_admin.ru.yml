@@ -101,6 +101,8 @@ ru:
       name_component: "Название компонента"
       create: "Создать"
       analytics: "Аналитика"
+      database: "База"
+      error: "Произошла непредвиденная ошибка!"
     flash:
       successful: "Успешно!"
       error: "Призошла ошбика!"

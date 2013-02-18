@@ -153,6 +153,31 @@ end
     end
     render text: true
   end
+
+  # POST whitekit/db_backup
+  def db_backup
+    config = Rails.configuration.database_configuration[Rails.env]
+    time = Time.now.to_formatted_s(:db).gsub(/-| |:/, '_')
+    dir = "#{Rails.root}/tmp/db/"
+
+    cmd = case config['adapter']
+            when 'mysql2'
+              file = "#{dir}db_mysql_#{config['database']}_#{time}.sql"
+              "mysqldump --lock-tables=FALSE -h#{config['host']} -u#{config['username']} -p#{config['password']} #{config['database']} > #{file}"
+            else
+              nil
+          end
+
+    if cmd
+      FileUtils.mkdir_p dir
+      if system(cmd) == true
+        send_file file, type: 'text/plain'
+        return
+      end
+    end
+
+    render text: t('admin.misc.error')
+  end
 end
 
 
