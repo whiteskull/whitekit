@@ -1,4 +1,4 @@
 = div_for @page do
-  %h1= @page.title_page.presence || @page.title
+  %h1= title_page
   = raw @page.content
 = edit_page_for_admin

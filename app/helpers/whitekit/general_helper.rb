@@ -34,7 +34,7 @@ module Whitekit::GeneralHelper
     whitekit_block(block)
   end
 
-  # Direcory view for admin
+  # Directory view for admin
   def whitekit_directory_view(path, opened = false)
     data = Whitekit.directory(Rails.root.join(path))
     content_tag :ul, class: "whitekit-directory #{if opened then 'whitekit-directory-opened' end}" do

@@ -1,5 +1,10 @@
 # coding: utf-8
 module ApplicationHelper
+  # Title of page
+  def title_page
+    @page.title_page.presence || @page.title
+  end
+
   # Hide display block if condition is true
   def display_none_if(condition = true)
     'display: none;' if condition
