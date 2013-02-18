@@ -8,7 +8,7 @@ class Block < ActiveRecord::Base
   attr_accessible :alias, :content, :hidden, :name, :visibility, :visibility_condition,
                   :component, :component_params, :component_theme, as: :admin
 
-  validates :alias, presence: true, uniqueness: true
+  validates :alias, uniqueness: true, allow_blank: true
   validates :name, :visibility_condition, presence: true
 
   before_save :alias_processing

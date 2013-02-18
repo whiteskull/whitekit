@@ -7,11 +7,6 @@ shared_examples_for "blocks" do |object|
       subject.should validate_presence_of(:name)
     end
 
-    it "presence of alias" do
-      subject.alias = nil
-      subject.should validate_presence_of(:alias)
-    end
-
     it "uniqueness of alias" do
       params = {name: 'New object', alias: 'object'}
       object.update_attributes(params, as: :admin)
