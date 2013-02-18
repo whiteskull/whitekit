@@ -72,6 +72,8 @@ ru:
       head: 'Заголовки'
       visibility: "Видимость"
       component: "Компонент"
+    help:
+      link: "Обязательное. Длина до 255. Если нужно создать новое меню, тогда укажите 'separator-{name}'"
     misc:
       filter_date_format: "dd/mm/yy" # a combination of 'dd', 'mm' and 'yy' with any delimiter. No other interpolation will be done!
       search: "Поиск"

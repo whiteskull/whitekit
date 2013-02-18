@@ -118,6 +118,7 @@ RailsAdmin.config do |config|
         label I18n.t('admin.group_fields.links')
         active false
         field :link do
+          help I18n.t('admin.help.link')
           visible do
             value != '/'
           end
