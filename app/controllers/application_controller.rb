@@ -8,8 +8,8 @@ class ApplicationController < ActionController::Base
 
   # Get main menu from pages
   def get_main_menu
-    #@main_menu = Rails.cache.fetch('main-menu', :expires_in => 24.hours) { Page.arrange(order: :position) }
-    @main_menu = Page.arrange(order: :position)
+    return if params[:controller] == 'rails_admin/main'
+    @main_menu = Rails.cache.fetch('main-menu', :expires_in => 24.hours) { Page.arrange(order: :position) }
   end
   
   def init_components
