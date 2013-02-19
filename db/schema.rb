@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130218105756) do
+ActiveRecord::Schema.define(:version => 20130219135208) do
 
   create_table "block_positions", :force => true do |t|
     t.string   "name"
@@ -53,6 +53,15 @@ ActiveRecord::Schema.define(:version => 20130218105756) do
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], :name => "idx_ckeditor_assetable"
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], :name => "idx_ckeditor_assetable_type"
 
+  create_table "news", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.boolean  "hidden",     :default => false
+    t.string   "image"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
   create_table "pages", :force => true do |t|
     t.string   "title"
     t.text     "content"
@@ -79,12 +88,22 @@ ActiveRecord::Schema.define(:version => 20130218105756) do
     t.integer  "item"
     t.string   "table"
     t.integer  "month",      :limit => 2
-    t.integer  "year",       :limit => 5
+    t.integer  "year",       :limit => 8
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "slider_images", :force => true do |t|
     t.string   "title"
