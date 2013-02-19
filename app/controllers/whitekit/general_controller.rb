@@ -196,11 +196,9 @@ end
 
         case config['adapter']
           when 'mysql2'
-            #"mysqldump -u#{config['username']} -p#{config['password']} --add-drop-table --no-data #{config['database']} | grep ^DROP | mysql -u#{config['username']} -p#{config['password']} #{config['database']}"
-            drop_tables = "mysqldump -u#{config['username']} -p#{config['password']} --add-drop-table --no-data testing | grep ^DROP | mysql -u#{config['username']} -p#{config['password']} testing"
+            drop_tables = "mysqldump -u#{config['username']} -p#{config['password']} --add-drop-table --no-data #{config['database']} | grep ^DROP | mysql -u#{config['username']} -p#{config['password']} #{config['database']}"
             if system(drop_tables) == true
-              #"mysql -D#{config['database']} -h#{config['host']} -u#{config['username']} -p#{config['password']} < #{file}"
-              recovery = "mysql -Dtesting -h#{config['host']} -u#{config['username']} -p#{config['password']} < #{file}"
+              recovery = "mysql -D#{config['database']} -h#{config['host']} -u#{config['username']} -p#{config['password']} < #{file}"
               if system(recovery) == true
                 @success = true
               end
