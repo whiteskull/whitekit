@@ -36,9 +36,29 @@ a {
 	width: 300px;
 }
 
-#create-component-modal .modal-body input {
+.modal {
 
-	&.error {
-		border-color: #d60000;
+	form {
+		margin: 0;
+	}
+}
+
+#create-component-modal {
+
+	.modal-body input {
+
+		&.error {
+			border-color: #d60000;
+		}
+	}
+}
+#db-recovery-modal {
+
+	.modal-body {
+
+		h3 {
+			text-align: center;
+			margin: 0;
+		}
 	}
 }

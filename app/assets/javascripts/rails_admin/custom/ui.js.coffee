@@ -10,15 +10,11 @@ $(document).ready ->
 
   # Fix rails admin window appear
   $('body').append($('#create-component-modal').remove())
-  $('body').append($('#db-recovery-modal').remove())
+  $('body').append($('#db-recovery-modal').detach())
 
-  $('#db-recovery-modal .modal-footer a').click (e)->
-    e.preventDefault()
-    $('#db-recovery-modal .modal-body form').submit()
-
-  $('#create-component-modal .modal-footer a').click (e)->
-    e.preventDefault()
-    $('#create-component-modal .modal-body form').submit()
+  $('#db-recovery-modal form').submit ->
+    $('#db-recovery-modal .modal-footer img').show()
+    $('#db-recovery-modal .modal-footer input').remove()
 
   $('#create-component a').click (e)->
     if $(this).hasClass('disabled')

@@ -31,5 +31,8 @@ en:
       recovery: "Recovery"
       backup: "Backup"
       db_recovery: "Database recovery"
+      recovery_success: "Recovery was successful"
+      recovery_fail: "Recovery failed"
+      close: "Close"
       attention_recovery: "Attention! This operation will erase all data from your database..."
       error: "An unexpected error occurred!"

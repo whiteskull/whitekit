@@ -23,29 +23,32 @@
 
 
 #create-component-modal.modal.hide.fade{style: 'z-index: 99999; position: fixed;'}
-  .modal-header
-    %button.close{'aria-hidden' => 'true', 'data-dismiss' => 'modal', :type => 'button'} ×
-    %h3= t('admin.misc.create_component')
-  .modal-body
-    = form_tag main_app.whitekit_create_component_path, class: 'form-horizontal', remote: true do
+  = form_tag main_app.whitekit_create_component_path, class: 'form-horizontal', remote: true do
+    .modal-header
+      %button.close{'aria-hidden' => 'true', 'data-dismiss' => 'modal', :type => 'button'} ×
+      %h3= t('admin.misc.create_component')
+    .modal-body
       .control-group
         %label.control-label{:for => 'component_name'}= t('admin.misc.name_component')
         .controls
           = text_field_tag :component_name, ''
-  .modal-footer
-    = link_to t('admin.misc.create'), '#', class: 'btn btn-info'
+    .modal-footer
+      = submit_tag t('admin.misc.create'), class: 'btn btn-info'
+      = link_to t('close'), '#', class: 'btn', data: {dismiss: 'modal'}
 
 #db-recovery-modal.modal.hide.fade{style: 'z-index: 99999; position: fixed;'}
-  .modal-header
-    %button.close{'aria-hidden' => 'true', 'data-dismiss' => 'modal', :type => 'button'} ×
-    %h3= t('admin.misc.db_recovery')
-  .modal-body
-    = form_tag main_app.whitekit_db_recovery_path, multipart: true, class: 'form-horizontal', remote: true do
+  = form_tag main_app.whitekit_db_recovery_path, multipart: true, class: 'form-horizontal', remote: true do
+    .modal-header
+      %button.close{'aria-hidden' => 'true', 'data-dismiss' => 'modal', :type => 'button'} ×
+      %h3= t('admin.misc.db_recovery')
+    .modal-body
       .control-group
         %label.control-label{:for => 'database'}= t('admin.misc.database')
         .controls
           = file_field_tag :database
           .help-block= t('admin.misc.attention_recovery')
-  .modal-footer
-    = link_to t('admin.misc.recovery'), '#', class: 'btn btn-info'
+    .modal-footer
+      = image_tag 'whitekit/loader_2.gif', style: 'display: none'
+      = submit_tag t('admin.misc.recovery'), class: 'btn btn-info'
+      = link_to t('admin.misc.close'), '#', class: 'btn btn-info close-button', data: {dismiss: 'modal'}, style: 'display: none'
 

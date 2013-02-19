@@ -34,8 +34,9 @@ end
   def clear_caches
     Rails.cache.clear
 
-    # If edit mode on then restart server in production
+    # If edit mode on then restart server in production and delete tmp/db folder
     if cookies['whitekit-edit'] == 'on'
+      FileUtils.rm_rf Rails.root.join('tmp', 'db')
       restart_path = Rails.root.join('tmp', 'restart.txt')
       FileUtils.rm restart_path if File.exists? restart_path
       FileUtils.touch restart_path
@@ -156,19 +157,19 @@ end
   def db_backup
     config = Rails.configuration.database_configuration[Rails.env]
     time = Time.now.to_formatted_s(:db).gsub(/-| |:/, '_')
-    dir = "#{Rails.root}/tmp/db/"
+    dir = Rails.root.join('tmp', 'db')
 
-    cmd = case config['adapter']
+    dump = case config['adapter']
             when 'mysql2'
-              file = "#{dir}db_mysql_#{config['database']}_#{time}.sql"
+              file = "#{dir}/db_mysql_#{config['database']}_#{time}.sql"
               "mysqldump --lock-tables=FALSE -h#{config['host']} -u#{config['username']} -p#{config['password']} #{config['database']} > #{file}"
             else
               nil
           end
 
-    if cmd
+    if dump
       FileUtils.mkdir_p dir
-      if system(cmd) == true
+      if system(dump) == true
         send_file file, type: 'text/plain'
         return
       end
@@ -179,7 +180,40 @@ end
 
   # POST whitekit/db_recovery
   def db_recovery
-    render nothing: true
+    @success = false
+
+    if params[:database]
+      config = Rails.configuration.database_configuration[Rails.env]
+      name = params[:database].original_filename
+
+      if name.split('.').last =~ /sql/
+        dir = Rails.root.join('tmp', 'db')
+        FileUtils.mkdir_p dir
+        file = "#{dir}/#{name}"
+        File.open file, 'wb' do |f|
+          f.write(params[:database].read)
+        end
+
+        case config['adapter']
+          when 'mysql2'
+            #"mysqldump -u#{config['username']} -p#{config['password']} --add-drop-table --no-data #{config['database']} | grep ^DROP | mysql -u#{config['username']} -p#{config['password']} #{config['database']}"
+            drop_tables = "mysqldump -u#{config['username']} -p#{config['password']} --add-drop-table --no-data testing | grep ^DROP | mysql -u#{config['username']} -p#{config['password']} testing"
+            if system(drop_tables) == true
+              #"mysql -D#{config['database']} -h#{config['host']} -u#{config['username']} -p#{config['password']} < #{file}"
+              recovery = "mysql -Dtesting -h#{config['host']} -u#{config['username']} -p#{config['password']} < #{file}"
+              if system(recovery) == true
+                @success = true
+              end
+            end
+          else
+            nil
+        end
+      end
+    end
+
+    respond_to do |format|
+      format.js
+    end
   end
 end
 
