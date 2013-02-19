@@ -22,9 +22,7 @@ end
 
   # POST whitekit/make_aliases
   def make_aliases
-    if current_user.try(:admin?)
-      Page.make_aliases
-    end
+    Page.make_aliases
 
     respond_to do |format|
       format.js
@@ -177,6 +175,11 @@ end
     end
 
     render text: t('admin.misc.error')
+  end
+
+  # POST whitekit/db_recovery
+  def db_recovery
+    render nothing: true
   end
 end
 

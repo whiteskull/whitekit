@@ -28,4 +28,8 @@ en:
       name_component: "Component name"
       analytics: "Analytics"
       database: "Database"
+      recovery: "Recovery"
+      backup: "Backup"
+      db_recovery: "Database recovery"
+      attention_recovery: "Attention! This operation will erase all data from your database..."
       error: "An unexpected error occurred!"

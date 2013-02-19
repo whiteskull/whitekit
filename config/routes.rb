@@ -10,6 +10,7 @@ Whitekit::Application.routes.draw do
     post 'whitekit/save_file_content' => :save_file_content, as: 'whitekit_save_file_content'
     post 'whitekit/session_path' => :session_path, as: 'whitekit_session_path'
     post 'whitekit/db_backup' => :db_backup, as: 'whitekit_db_backup'
+    post 'whitekit/db_recovery' => :db_recovery, as: 'whitekit_db_recovery'
   end
 
   mount Ckeditor::Engine => '/ckeditor'

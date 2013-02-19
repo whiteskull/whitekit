@@ -8,8 +8,13 @@ load_component_params = (component)->
 
 $(document).ready ->
 
-  create_component = $('#create-component-modal').remove()
-  $('body').append(create_component)
+  # Fix rails admin window appear
+  $('body').append($('#create-component-modal').remove())
+  $('body').append($('#db-recovery-modal').remove())
+
+  $('#db-recovery-modal .modal-footer a').click (e)->
+    e.preventDefault()
+    $('#db-recovery-modal .modal-body form').submit()
 
   $('#create-component-modal .modal-footer a').click (e)->
     e.preventDefault()

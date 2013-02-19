@@ -95,7 +95,7 @@ You can enter in administrator back-end
     xxx.xx/admin
 
 ```text
-email: admin@mail.ru
+email: admin@mail.com
 password: password
 ```
 
