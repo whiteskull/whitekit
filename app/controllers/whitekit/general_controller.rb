@@ -14,18 +14,18 @@ end
   TEMPLATE
 
   COMPONENT_VIEW = <<-VIEW
-# If you need to use js or css, you can use (they included automatically):
-# assets/(javascripts|stylesheets)/components/COMPONENT_NAME/(theme_name)/COMPONENT_NAME.(js|css)
-# theme_name by default is 'default'. If you change the theme then you have to copy js and css to new folder
-# with name of this theme.
-#
-# You can use all instance variables of the component as regular variables.
-# Also there are special variables:
-# component_path - Path to this component
-# options - Options of this component
-# block - Block parameters of this component
+-# If you need to use js or css, you can use (they included automatically):
+-# assets/(javascripts|stylesheets)/components/COMPONENT_NAME/(theme_name)/COMPONENT_NAME.(js|css)
+-# theme_name by default is 'default'. If you change the theme then you have to copy js and css to new folder
+-# with name of this theme.
+-#
+-# You can use all instance variables of the component as regular variables.
+-# Also there are special variables:
+-# component_path - Path to this component
+-# options - Options of this component
+-# block - Block parameters of this component
 
-= "[\#{block.alias}]"
+= "[\#{block.name}]"
   VIEW
 
   # Check if user is admin
