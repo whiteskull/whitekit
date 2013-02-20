@@ -25,7 +25,7 @@ end
 # options - Options of this component
 # block - Block parameters of this component
 
-= "[#{block.alias}]"
+= "[\#{block.alias}]"
   VIEW
 
   # Check if user is admin
