@@ -13,6 +13,21 @@ class COMPONENT_NAMEComponent < BaseComponent
 end
   TEMPLATE
 
+  COMPONENT_VIEW = <<-VIEW
+# If you need to use js or css, you can use (they included automatically):
+# assets/(javascripts|stylesheets)/components/COMPONENT_NAME/(theme_name)/COMPONENT_NAME.(js|css)
+# theme_name by default is 'default'. If you change the theme then you have to copy js and css to new folder
+# with name of this theme.
+#
+# You can use all instance variables of the component as regular variables.
+# Also there are special variables:
+# component_path - Path to this component
+# options - Options of this component
+# block - Block parameters of this component
+
+= "[#{block.alias}]"
+  VIEW
+
   # Check if user is admin
   def check_admin
     unless user_signed_in? && current_user.admin?
@@ -49,7 +64,7 @@ end
 
   # POST whitekit/create_component
   def create_component
-    component = params[:component_name].downcase.gsub(/ /, '_')
+    component = params[:component_name].strip.downcase.gsub(/ /, '_')
     # If component name not empty, and file does not exist
     if component.present? && !File.exists?(file = Rails.root.join('app', 'components', "#{component}_component.rb").to_s)
       # Create class of component
@@ -59,7 +74,7 @@ end
       # Create view of component
       FileUtils.mkdir_p view_dir = Rails.root.join('app', 'views', 'components', component, 'default').to_s
       File.open("#{view_dir}/_index.haml", 'w') do |f|
-        f.write('= "[#{block.alias}]"')
+        f.write(COMPONENT_VIEW.gsub(/COMPONENT_NAME/, component))
       end
       # Create js of component
       FileUtils.mkdir_p js_dir = Rails.root.join('app', 'assets', 'javascripts', 'components', component, 'default').to_s

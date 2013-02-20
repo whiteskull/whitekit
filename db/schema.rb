@@ -53,15 +53,6 @@ ActiveRecord::Schema.define(:version => 20130219135208) do
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], :name => "idx_ckeditor_assetable"
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], :name => "idx_ckeditor_assetable_type"
 
-  create_table "news", :force => true do |t|
-    t.string   "title"
-    t.text     "content"
-    t.boolean  "hidden",     :default => false
-    t.string   "image"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-  end
-
   create_table "pages", :force => true do |t|
     t.string   "title"
     t.text     "content"
