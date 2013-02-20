@@ -1,16 +1,16 @@
 Whitekit::Application.routes.draw do
 
-  controller 'whitekit::general' do
-    post 'whitekit/make_aliases' => :make_aliases, as: 'whitekit_make_aliases'
-    post 'whitekit/clear_caches' => :clear_caches, as: 'whitekit_clear_caches'
-    post 'whitekit/create_component' => :create_component, as: 'whitekit_create_component'
-    post 'whitekit/get_component_params' => :get_component_params, as: 'whitekit_get_component_params'
-    post 'whitekit/get_file_content' => :get_file_content, as: 'whitekit_get_file_content'
-    post 'whitekit/get_folder_content' => :get_folder_content, as: 'whitekit_get_folder_content'
-    post 'whitekit/save_file_content' => :save_file_content, as: 'whitekit_save_file_content'
-    post 'whitekit/session_path' => :session_path, as: 'whitekit_session_path'
-    post 'whitekit/db_backup' => :db_backup, as: 'whitekit_db_backup'
-    post 'whitekit/db_recovery' => :db_recovery, as: 'whitekit_db_recovery'
+  scope path: 'whitekit', controller: 'whitekit::general' do
+    post 'make_aliases' => :make_aliases, as: 'whitekit_make_aliases'
+    post 'clear_caches' => :clear_caches, as: 'whitekit_clear_caches'
+    post 'create_component' => :create_component, as: 'whitekit_create_component'
+    post 'get_component_params' => :get_component_params, as: 'whitekit_get_component_params'
+    post 'get_file_content' => :get_file_content, as: 'whitekit_get_file_content'
+    post 'get_folder_content' => :get_folder_content, as: 'whitekit_get_folder_content'
+    post 'save_file_content' => :save_file_content, as: 'whitekit_save_file_content'
+    post 'session_path' => :session_path, as: 'whitekit_session_path'
+    post 'db_backup' => :db_backup, as: 'whitekit_db_backup'
+    post 'db_recovery' => :db_recovery, as: 'whitekit_db_recovery'
   end
 
   mount Ckeditor::Engine => '/ckeditor'
