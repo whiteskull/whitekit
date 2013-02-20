@@ -18,8 +18,7 @@ class BaseComponent
   end
 
   # Merge default options with user options
-  def merge(defaults)
+  def merge!(defaults)
     @options = @options.reverse_merge(defaults)
   end
-
 end
