@@ -6,3 +6,7 @@
 $('#db-recovery-modal .modal-body').html(text);
 $('#db-recovery-modal .modal-footer img').hide();
 $('#db-recovery-modal .modal-footer a.close-button').show();
+$('#db-recovery-modal .modal-footer a.close-button').click(function(e) {
+  e.preventDefault();
+  document.location.reload();
+});

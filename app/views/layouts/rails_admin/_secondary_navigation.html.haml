@@ -45,7 +45,7 @@
       .control-group
         %label.control-label{:for => 'database'}= t('admin.misc.database')
         .controls
-          = file_field_tag :database
+          = file_field_tag :database, accept: 'text/plain'
           .help-block= t('admin.misc.attention_recovery')
     .modal-footer
       = image_tag 'whitekit/loader_2.gif', style: 'display: none'
